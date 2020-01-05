@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ArtavBlog.Models;
+using ArtavBlog.Models.Base;
 
 namespace ArtavBlog.Controllers
 {
@@ -13,9 +14,10 @@ namespace ArtavBlog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,BlogContext context)
         {
             _logger = logger;
+            context.CommentDb.ToList();
         }
 
         public IActionResult Index()

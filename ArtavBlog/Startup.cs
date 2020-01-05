@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ArtavBlog.Models.Account;
+using ArtavBlog.Models.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +23,29 @@ namespace ArtavBlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            Identity();
+            LocalDependencyInjection();
+
+            void Identity()
+            {
+                services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                    {
+                        options.Password.RequiredLength = 6;
+                        options.User.RequireUniqueEmail = true;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                    })
+                    .AddEntityFrameworkStores<BlogContext>()
+                 //   .AddDefaultUI()
+                    .AddDefaultTokenProviders();
+            }
+            void LocalDependencyInjection()
+            {
+                //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
+                services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +66,8 @@ namespace ArtavBlog
 
             app.UseRouting();
 
-            app.UseAuthorization();
+          //  app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
