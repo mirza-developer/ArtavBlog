@@ -66,7 +66,7 @@ namespace ArtavBlog
 
             app.UseRouting();
 
-          //  app.UseAuthorization();
+            app.UseAuthorization();
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>

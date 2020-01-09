@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtavBlog.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ArtavBlog.Models;
 using ArtavBlog.Models.Base;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ArtavBlog.Controllers
 {
-    public class HomeController : Controller
+    [Authorize(Roles = "User")]
+    public class HomeController : ParentController
     {
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger,BlogContext context)
         {
             _logger = logger;
-            context.CommentDb.ToList();
         }
 
         public IActionResult Index()
@@ -30,6 +32,7 @@ namespace ArtavBlog.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

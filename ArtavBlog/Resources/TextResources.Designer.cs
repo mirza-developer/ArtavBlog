@@ -59,5 +59,158 @@ namespace ArtavBlog.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ورود.
+        /// </summary>
+        public static string APP_STRINGKEYS_Account_Login {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Account_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to خروج.
+        /// </summary>
+        public static string APP_STRINGKEYS_Account_LogOff {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Account_LogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حساب کاربری.
+        /// </summary>
+        public static string APP_STRINGKEYS_Account_Profile {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Account_Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to در انجام عملیات مورد مشکلی بوجود آمده است.
+        /// </summary>
+        public static string APP_STRINGKEYS_Message_Failure {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Message_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام کاربری / رمز عبور اشتباه است.
+        /// </summary>
+        public static string APP_STRINGKEYS_Message_LoginFailed {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Message_LoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to گره موردنظر قابل ویرایش نیست.
+        /// </summary>
+        public static string APP_STRINGKEYS_Message_NodeCannotEdit {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Message_NodeCannotEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عملیات با موفقیت انجام شد.
+        /// </summary>
+        public static string APP_STRINGKEYS_Message_Success {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Message_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حساب کاربری شما غیرفعال شده است.
+        /// </summary>
+        public static string APP_STRINGKEYS_Message_Suspend {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Message_Suspend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کلمه عبور.
+        /// </summary>
+        public static string APP_STRINGKEYS_Password {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بازگشت.
+        /// </summary>
+        public static string APP_STRINGKEYS_Return {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ردیف.
+        /// </summary>
+        public static string APP_STRINGKEYS_Row {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Row", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ثبت.
+        /// </summary>
+        public static string APP_STRINGKEYS_Save {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [بدون تغییر].
+        /// </summary>
+        public static string APP_STRINGKEYS_Unchanged {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Unchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مقدار وارد شده در برای فیلد {0} در فرمت مناسب نیست.
+        /// </summary>
+        public static string APP_STRINGKEYS_Validation_BadFormat {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Validation_BadFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اطلاعات فیلد {0} قبلا وارد شده است.
+        /// </summary>
+        public static string APP_STRINGKEYS_Validation_Remote_Uniqueness {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Validation_Remote_Uniqueness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پر کردن فیلد {0} الزامی است.
+        /// </summary>
+        public static string APP_STRINGKEYS_Validation_Required {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Validation_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to طول فیلد {0} باید میان {1} و {2} باشد.
+        /// </summary>
+        public static string APP_STRINGKEYS_Validation_Stringlength {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Validation_Stringlength", resourceCulture);
+            }
+        }
     }
 }

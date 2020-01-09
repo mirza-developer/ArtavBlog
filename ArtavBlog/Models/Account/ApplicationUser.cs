@@ -35,6 +35,8 @@ namespace ArtavBlog.Models.Account
 
     public class LoginViewModel
     {
+        public string ReturnUrl { get; set; }
+
         [Required]
         [StringLength(256)]
         public string Username { get; set; }
