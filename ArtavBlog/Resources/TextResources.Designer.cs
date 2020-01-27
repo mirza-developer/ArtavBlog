@@ -61,11 +61,29 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مدیریت کاربران.
+        /// </summary>
+        public static string APP_STRINGKEYS_Account_Index {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Account_Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ورود.
         /// </summary>
         public static string APP_STRINGKEYS_Account_Login {
             get {
                 return ResourceManager.GetString("APP_STRINGKEYS_Account_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اطلاعات کاربری خود را وارد کنید.
+        /// </summary>
+        public static string APP_STRINGKEYS_Account_Login_Subtitle {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Account_Login_Subtitle", resourceCulture);
             }
         }
         
@@ -169,11 +187,29 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تاریخ ثبت نام.
+        /// </summary>
+        public static string APP_STRINGKEYS_SignupDate {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_SignupDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [بدون تغییر].
         /// </summary>
         public static string APP_STRINGKEYS_Unchanged {
             get {
                 return ResourceManager.GetString("APP_STRINGKEYS_Unchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام کاربری.
+        /// </summary>
+        public static string APP_STRINGKEYS_Username {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Username", resourceCulture);
             }
         }
         

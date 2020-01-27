@@ -1,5 +1,4 @@
-﻿@using ArtavBlog.Resources
-@model ArtavBlog.Models.Account.LoginViewModel
+﻿@model ArtavBlog.Models.Account.LoginViewModel
 @{
     ViewData["Title"] = TextResources.APP_STRINGKEYS_Account_Login;
 }
@@ -10,8 +9,9 @@
 <br />
 <div class="row text-align-right">
     <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal" role="form">
-        <h4>اطلاعات کاربری خود را وارد کنید</h4>
+        <h4>@TextResources.APP_STRINGKEYS_Account_Login_Subtitle</h4>
         <hr />
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="ReturnUrl" />
         <div asp-validation-summary="All" class="text-danger alert-danger"></div>
         <div class="form-group">

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtavBlog.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class HomeController : ParentController
     {
         private readonly ILogger<HomeController> _logger;

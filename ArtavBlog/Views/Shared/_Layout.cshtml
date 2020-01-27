@@ -25,25 +25,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@TextResources.APP_STRINGKEYS_Account_Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOff">@TextResources.APP_STRINGKEYS_Account_LogOff</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">@TextResources.APP_STRINGKEYS_Account_Login</a>
-                            </li>
-                        }
-
-                    </ul>
-
+                        @await Html.PartialAsync("LoginPartial")
                 </div>
             </div>
         </nav>
@@ -59,7 +41,7 @@
             &copy; 2019 - ArtavBlog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-   
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArtavBlog.Controllers
 {
+    [Authorize]
     public class AccountController : ParentController
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -33,12 +34,12 @@ namespace ArtavBlog.Controllers
             return View();
         }
 
-        [Authorize(Roles = "User")]
         public IActionResult Profile()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl, MessageId messageId = MessageId.NoAction)
         {
             //ViewData["ReturnUrl"] = returnUrl;
@@ -50,6 +51,7 @@ namespace ArtavBlog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel login, string returnUrl)
         {
             var user = await _context.Users.FirstOrDefaultAsync(p => p.UserName == login.Username); ;
@@ -76,7 +78,7 @@ namespace ArtavBlog.Controllers
             }
         }
 
-        [Authorize(Roles = "User")]
+        [HttpPost]
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();

@@ -1,0 +1,32 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<ArtavBlog.Models.Account.ApplicationUser> SignInManager
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <ul class="navbar-nav flex-grow-1 navbar-right">
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">@TextResources.APP_STRINGKEYS_Account_Index</a>
+            </li>
+        }
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@TextResources.APP_STRINGKEYS_Account_Profile</a>
+        </li>
+        <li class="nav-item">
+            <form asp-controller="Account" asp-action="LogOff" id="logoutForm"
+                  method="post" class="navbar-right">
+                <a class="nav-link text-dark" href="javascript:document.getElementById('logoutForm').submit()">@TextResources.APP_STRINGKEYS_Account_LogOff</a>
+            </form>
+        </li>
+    </ul>
+
+}
+else
+{
+    <ul class="navbar-nav flex-grow-1 navbar-right">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">@TextResources.APP_STRINGKEYS_Account_Login</a>
+        </li>
+    </ul>
+}

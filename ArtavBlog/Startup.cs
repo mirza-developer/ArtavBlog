@@ -26,7 +26,6 @@ namespace ArtavBlog
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             Identity();
             LocalDependencyInjection();
-
             void Identity()
             {
                 services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -38,7 +37,7 @@ namespace ArtavBlog
                         options.Password.RequireNonAlphanumeric = false;
                     })
                     .AddEntityFrameworkStores<BlogContext>()
-                 //   .AddDefaultUI()
+                    //   .AddDefaultUI()
                     .AddDefaultTokenProviders();
             }
             void LocalDependencyInjection()
@@ -63,12 +62,9 @@ namespace ArtavBlog
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
-
+            app.UseRouting();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

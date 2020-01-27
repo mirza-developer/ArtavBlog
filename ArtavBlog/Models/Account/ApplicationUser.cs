@@ -11,6 +11,9 @@ namespace ArtavBlog.Models.Account
     [Table("Ident.User")]
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+        }
         [Required]
         public bool IsDeleted { get; set; }
 
@@ -30,6 +33,18 @@ namespace ArtavBlog.Models.Account
         [Required]
         [StringLength(128)]
         public string LastModifierIdentityID { get; set; }
+
+    }
+
+    public class ApplicationUserViewModel
+    {
+        public string Username { get; set; }
+
+        public string ActivationStatus { get; set; }
+
+        public string Description { get; set; }
+
+        public string SignupShamsiDate { get; set; }
 
     }
 
