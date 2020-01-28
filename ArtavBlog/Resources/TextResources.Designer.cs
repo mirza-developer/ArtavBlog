@@ -106,6 +106,24 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to صفحه ی قبل.
+        /// </summary>
+        public static string APP_STRINGKEYS_BackPage {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_BackPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to از.
+        /// </summary>
+        public static string APP_STRINGKEYS_From {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to در انجام عملیات مورد مشکلی بوجود آمده است.
         /// </summary>
         public static string APP_STRINGKEYS_Message_Failure {
@@ -151,11 +169,38 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to صفحه ی بعد.
+        /// </summary>
+        public static string APP_STRINGKEYS_NextPage {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_NextPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صفحه.
+        /// </summary>
+        public static string APP_STRINGKEYS_Page {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to کلمه عبور.
         /// </summary>
         public static string APP_STRINGKEYS_Password {
             get {
                 return ResourceManager.GetString("APP_STRINGKEYS_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاریخ ثبت نام.
+        /// </summary>
+        public static string APP_STRINGKEYS_RegisterDate {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_RegisterDate", resourceCulture);
             }
         }
         
@@ -201,6 +246,15 @@ namespace ArtavBlog.Resources {
         public static string APP_STRINGKEYS_Unchanged {
             get {
                 return ResourceManager.GetString("APP_STRINGKEYS_Unchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وضعیت فعال بودن.
+        /// </summary>
+        public static string APP_STRINGKEYS_UserActivationStatus {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_UserActivationStatus", resourceCulture);
             }
         }
         

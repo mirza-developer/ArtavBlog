@@ -39,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="AvizheCalendar">
+      <HintPath>bin\Debug\netcoreapp3.1\AvizheCalendar.dll</HintPath>
+    </Reference>
     <Reference Include="AvizheCrypto">
       <HintPath>bin\Debug\netcoreapp3.1\AvizheCrypto.dll</HintPath>
     </Reference>

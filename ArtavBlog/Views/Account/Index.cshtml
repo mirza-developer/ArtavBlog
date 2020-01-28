@@ -1,7 +1,93 @@
 ﻿@model IEnumerable<ArtavBlog.Models.Account.ApplicationUserViewModel>
 @{
     ViewData["Title"] = TextResources.APP_STRINGKEYS_Account_Index;
+    var currentRowNumber = 1;
 }
 
-<h1>@TextResources.APP_STRINGKEYS_Account_Index</h1>
+<h1 class="text-align-right">@ViewData["Title"]</h1>
+<hr />
+<br />
+<script src="~/js/Pagination.js"></script>
 
+<div class="col-md-8">
+    <table class="table  table-bordered text-align-center">
+        <thead class="bg-primary text-white">
+            <tr>
+                <td>
+                    @TextResources.APP_STRINGKEYS_Row
+                </td>
+                <td>
+                    @Html.DisplayNameFor(p => p.Username)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(p => p.ActivationStatus)
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (currentRowNumber <= 10)
+                {
+
+                    <tr id="row-@item.Username" row-number="@currentRowNumber" class="master-table-row">
+                        <td>
+                            @currentRowNumber
+                        </td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.ActivationStatus
+                        </td>
+                    </tr>
+
+                }
+                else
+                {
+                    <tr id="row-@item.Username" hidden="hidden" row-number="@currentRowNumber" class="master-table-row ">
+                        <td>
+                            @currentRowNumber
+                        </td>
+                        <td>
+                            @item.Username
+                        </td>
+                        <td>
+                            @item.ActivationStatus
+                        </td>
+                    </tr>
+                }
+                currentRowNumber++;
+            }
+        </tbody>
+    </table>
+    @if (Model.Count() >= 10)
+    {
+        <input id="data-periods" type="hidden" from-row="1" to-row="10" />
+    }
+    else
+    {
+        <input id="data-periods" type="hidden" from-row="1" to-row="@Model.Count()" />
+    }
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item " move-value="-1" hidden="hidden"><a class="page-link" href="#data-history">@TextResources.APP_STRINGKEYS_BackPage</a></li>
+            <li class="page-item">
+                <a id="label-show-page-number" class="page-link" href="#data-history">
+                    <span>
+                        @TextResources.APP_STRINGKEYS_Page
+                    </span>
+                    <span id="current-page" page-value="1">
+                        1
+                    </span>
+                    <span>
+                        @TextResources.APP_STRINGKEYS_From
+                    </span>
+                    @((Model.Count() / 10) + 1)
+                </a>
+            </li>
+            <li class="page-item" move-value="1"><a class="page-link" href="#data-history">@TextResources.APP_STRINGKEYS_NextPage</a></li>
+        </ul>
+    </nav>
+
+</div>

@@ -31,7 +31,14 @@ namespace ArtavBlog.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            return View();
+            var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
+            return View(_userManager.Users.Select(p=> new ApplicationUserViewModel() 
+            {
+                Username = p.UserName,
+                SignupShamsiDate = shamsi.GregorianToPersian(p.CreateDateAndTime),
+                ActivationStatus = p.IsDeleted? "غیر فعال": "فعال",
+                Description = ""
+            }).ToList());
         }
 
         public IActionResult Profile()

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtavBlog.Resources;
 using Microsoft.AspNetCore.Identity;
 
 namespace ArtavBlog.Models.Account
@@ -38,12 +39,15 @@ namespace ArtavBlog.Models.Account
 
     public class ApplicationUserViewModel
     {
+        [Display(ResourceType =typeof(TextResources),Name = "APP_STRINGKEYS_Username")]
         public string Username { get; set; }
 
+        [Display(ResourceType = typeof(TextResources), Name = "APP_STRINGKEYS_Username")]
         public string ActivationStatus { get; set; }
 
         public string Description { get; set; }
 
+        [Display(ResourceType = typeof(TextResources), Name = "APP_STRINGKEYS_RegisterDate")]
         public string SignupShamsiDate { get; set; }
 
     }

@@ -132,6 +132,12 @@
   <data name="APP_STRINGKEYS_Account_Profile" xml:space="preserve">
     <value>حساب کاربری</value>
   </data>
+  <data name="APP_STRINGKEYS_BackPage" xml:space="preserve">
+    <value>صفحه ی قبل</value>
+  </data>
+  <data name="APP_STRINGKEYS_From" xml:space="preserve">
+    <value>از</value>
+  </data>
   <data name="APP_STRINGKEYS_Message_Failure" xml:space="preserve">
     <value>در انجام عملیات مورد مشکلی بوجود آمده است</value>
   </data>
@@ -147,8 +153,17 @@
   <data name="APP_STRINGKEYS_Message_Suspend" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است</value>
   </data>
+  <data name="APP_STRINGKEYS_NextPage" xml:space="preserve">
+    <value>صفحه ی بعد</value>
+  </data>
+  <data name="APP_STRINGKEYS_Page" xml:space="preserve">
+    <value>صفحه</value>
+  </data>
   <data name="APP_STRINGKEYS_Password" xml:space="preserve">
     <value>کلمه عبور</value>
+  </data>
+  <data name="APP_STRINGKEYS_RegisterDate" xml:space="preserve">
+    <value>تاریخ ثبت نام</value>
   </data>
   <data name="APP_STRINGKEYS_Return" xml:space="preserve">
     <value>بازگشت</value>
@@ -164,6 +179,9 @@
   </data>
   <data name="APP_STRINGKEYS_Unchanged" xml:space="preserve">
     <value>[بدون تغییر]</value>
+  </data>
+  <data name="APP_STRINGKEYS_UserActivationStatus" xml:space="preserve">
+    <value>وضعیت فعال بودن</value>
   </data>
   <data name="APP_STRINGKEYS_Username" xml:space="preserve">
     <value>نام کاربری</value>
