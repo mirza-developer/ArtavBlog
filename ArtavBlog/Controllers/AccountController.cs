@@ -41,6 +41,28 @@ namespace ArtavBlog.Controllers
             }).ToList());
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult Details(string username)
+        {
+            var user = _userManager.Users.FirstOrDefault(p => p.UserName == username);
+            //if (user is null)
+            //    return false;
+            //.Select(p => new ApplicationUserViewModel()
+            //{
+            //    Username = p.UserName,
+            //    SignupShamsiDate = shamsi.GregorianToPersian(p.CreateDateAndTime),
+            //    ActivationStatus = p.IsDeleted ? "غیر فعال" : "فعال",
+            //    Description = ""
+            //})
+            var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
+            return View(new ApplicationUserViewModel()
+            {
+                Username = username,
+                ActivationStatus = user.IsDeleted ? "غیر فعال" : "فعال",
+                SignupShamsiDate = shamsi.GregorianToPersian(user.CreateDateAndTime),
+            });
+        }
+
         public IActionResult Profile()
         {
             return View();
