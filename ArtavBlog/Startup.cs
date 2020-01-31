@@ -1,3 +1,4 @@
+using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,7 @@ namespace ArtavBlog
             }
             void LocalDependencyInjection()
             {
+                services.AddSignalR();
                 //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
                 services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
             }
@@ -70,6 +72,7 @@ namespace ArtavBlog
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

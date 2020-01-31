@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArtavBlog.Business.Base;
 using ArtavBlog.Controllers.Base;
+using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
 using ArtavBlog.Resources;
