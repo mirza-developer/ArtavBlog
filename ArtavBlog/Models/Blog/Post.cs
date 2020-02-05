@@ -18,7 +18,7 @@ namespace ArtavBlog.Models.Blog
         public string Title { get; set; }
 
         [Display(Name = "Post_Field_IsMain", ResourceType = typeof(TextResources))]
-        public bool IsMainPost { get; set; }
+        public int PostOrder { get; set; }
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -53,6 +53,6 @@ namespace ArtavBlog.Models.Blog
         [Required]
         public string PostPictureLocation { get; set; }
 
-        public bool IsMainPost { get; set; }
+        public int IsMainPost { get; set; }
     }
 }

@@ -14,18 +14,72 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="~/css/font.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/4990e1125c.js" crossorigin="anonymous"></script>
 </head>
 <body class="k-rtl">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ArtavBlog</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="index.html" style="color: white">مجموعه فرهنگی ورزشی کوثر</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        @await Html.PartialAsync("LoginPartial")
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html" style="color: white">استخر</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html" style="color: white">بدنسازی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html" style="color: white">رزمی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog" style="color: white">بلاگ</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="tel:021-66860414" style="color: white"><strong>با ما در تماس باشید</strong></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tel:021-66860414" style="color: white"><i class="fa fa-mobile-alt"></i> تلفن : 66860414</a>
+                        </li>
+                        @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Portfolio
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
+                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Blog
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
+                <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
+                <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Other Pages
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" href="full-width.html">Full Width Page</a>
+                <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
+                <a class="dropdown-item" href="faq.html">FAQ</a>
+                <a class="dropdown-item" href="404.html">404</a>
+                <a class="dropdown-item" href="pricing.html">Pricing Table</a>
+            </div>
+        </li>*@
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -36,9 +90,40 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - ArtavBlog - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="py-5 text-align-center" style=" position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: deepskyblue;
+    height: 270px;
+    width:100%;">
+        <div class="row " @*style="margin-right: 10px"*@>
+            <div class="card-footer " style="width: 50%">
+                <p> <h5>برای اطلاع از آخرین اخبار شماره تلفن خود را وارد کنید</h5></p>
+                <div id="div-inputnumber">
+                    <p style="margin-right: 30%"> <input type="text" placeholder="09********" dir="ltr" class="form-control" id="input-phonenumber" /></p>
+                </div>
+                <div id="div-thanks" hidden>
+                    <p><h5 class="text-success">از همراهی شما متشکریم</h5><i class="fas fa-laugh-wink phone-icon"></i></p>
+                </div>
+                <div id="div-wait" hidden>
+                    <p><h5 class="text-warning">چند لحظه صبر کنید</h5><i class="far fa-clock phone-icon"></i></p>
+                </div>
+                <div id="div-unsuccess" hidden>
+                    <p><h5 class="text-danger">در ثبت اطلاعات مشکلی بوجود آمده است</h5><i class="fas fa-sad-tear phone-icon"></i></p>
+                </div>
+                <div id="div-textvalidation" hidden>
+                    <p><h5 class="text-danger">لطفا تلفن خود را در فرمت درست وارد کنید</h5></p>
+                </div>
+                <p style="margin-right: 30%"><button id="button-savenumber" class="btn btn-success">ثبت</button></p>
+            </div>
+            <div class="card-footer" style="width: 48%">
+                <p><h5>با ما در ارتباط باشید</h5></p>
+                <p>تلفن: <a href="tel:021-66860414" style="color: black">66860414 <i class="fa fa-mobile-alt"></i></a></p>
+                <p>پست الکترونیکی: <a href="mailto:info@kosarsport.ir" style="color: black">info@kosarsport.ir <i class="far fa-envelope"></i></a></p>
+                <p>کانال تلگرام: <a href="https://t.me/kosarcomplex" style="color: black">kosarcomplex@@ <i class="fab fa-telegram"></i></a></p>
+                @*<p><a href="/home/about" style="color: white" class="nav-link">درباره ما</a></p>*@
+            </div>
+
         </div>
     </footer>
 

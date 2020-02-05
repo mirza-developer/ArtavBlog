@@ -9,10 +9,10 @@ using Microsoft.Extensions.Logging;
 using ArtavBlog.Models;
 using ArtavBlog.Models.Base;
 using Microsoft.AspNetCore.Authorization;
+using ArtavBlog.Models.Blog;
 
 namespace ArtavBlog.Controllers
 {
-    [Authorize]
     public class HomeController : ParentController
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,7 +24,7 @@ namespace ArtavBlog.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new List<Post>());
         }
 
         public IActionResult Privacy()
