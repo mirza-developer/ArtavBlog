@@ -1,6 +1,8 @@
 using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
+using ArtavBlog.Models.Blog;
+using ArtavBlog.Repository.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +46,7 @@ namespace ArtavBlog
             void LocalDependencyInjection()
             {
                 services.AddSignalR();
+                services.AddTransient<ISqlBaseRepository<Post>>();
                 //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
                 services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
             }

@@ -14,10 +14,10 @@ namespace ArtavBlog.Models.Blog
     {
         [Required]
         [StringLength(128)]
-        [Display(Name = "Post_Field_Title", ResourceType = typeof(TextResources))]
+        [Display(Name = "عنوان پست")]
         public string Title { get; set; }
 
-        [Display(Name = "Post_Field_IsMain", ResourceType = typeof(TextResources))]
+        [Display(Name = "اولویت پست")]
         public int PostOrder { get; set; }
 
         [Required]
@@ -25,16 +25,16 @@ namespace ArtavBlog.Models.Blog
         public int UniqueIntegerID { get; set; }
 
         [Required]
-        [Display(Name = "Post_Field_Content", ResourceType = typeof(TextResources))]
+        [Display(Name = "متن")]
         public string ContentHtml { get; set; }
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Post_Field_BriefContent", ResourceType = typeof(TextResources))]
+        [Display(Name = "خلاصه مطلب")]
         public string ContentInBrief { get; set; }
 
         [Required]
-        [Display(Name = "Post_Field_PostPicture", ResourceType = typeof(TextResources))]
+        [Display(Name = "عکس")]
         public string PostPictureName { get; set; }
 
         public virtual ICollection<TagPost> TagPost_List { get; set; }
