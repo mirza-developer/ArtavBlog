@@ -37,11 +37,17 @@ namespace ArtavBlog.Business.Base
 
         public async virtual Task<bool> InsertInstance(T instance, bool wantToFillFormalProperties = true)
         {
-            if (wantToFillFormalProperties)
-                FillFormalProperties();
-            await _dataList.AddAsync(instance);
-            return await _context.SaveChangesAsync() == 1;
-
+            try
+            {
+                if (wantToFillFormalProperties)
+                    FillFormalProperties();
+                await _dataList.AddAsync(instance);
+                return await _context.SaveChangesAsync() == 1;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             void FillFormalProperties()
             {
                 instance.ID = Guid.NewGuid().ToString();

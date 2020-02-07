@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ArtavBlog.Business.Base;
@@ -56,14 +57,17 @@ namespace ArtavBlog.Controllers
         public async Task<IActionResult> Create(Post dataPost)
         {
             await ViewRequirements();
-            if (await _repos.InsertInstance(dataPost, true))
+            if (await _repos.InsertInstance(dataPost, false))
                 return RedirectToAction("Index", new { messageId = MessageId.Success });
             else
                 return RedirectToAction("Index", new { messageId = MessageId.Failure });
             async Task ViewRequirements()
             {
-                dataPost.LastModifierIdentityID = User.Identity.Name;
-                dataPost.CreatorIdentityID = User.Identity.Name;
+                dataPost.CreateDateAndTime = DateTime.Now;
+                dataPost.LastModifiedDateAndTime = DateTime.Now;
+                dataPost.IsDeleted = false;
+                dataPost.LastModifierIdentityID = Guid.NewGuid().ToString();// User.Identity.Name;
+                dataPost.CreatorIdentityID = Guid.NewGuid().ToString();// User.Identity.Name;
                 dataPost.PostPictureName = string.Empty;
             }
         }
@@ -76,7 +80,12 @@ namespace ArtavBlog.Controllers
                 if (file != null && file.Length > 0)
                 {
                     string pathWeb = _hostingEnvironment.WebRootPath;
-                    string savePathFull = string.Format("/images/Post/{0}/{1}/{2}", postId, pathWeb, file.FileName);
+                    string savePath = string.Format("{0}/images/Post/{1}", pathWeb,postId);
+                    if (!Directory.Exists(savePath))
+                        Directory.CreateDirectory(savePath);
+                    string savePathFull = string.Format("{0}/{1}" , savePath, file.FileName);
+                    if (System.IO.File.Exists(savePathFull))
+                        System.IO.File.Delete(savePathFull);
                     using var stream = System.IO.File.Create(savePathFull);
                     await file.CopyToAsync(stream);
                     return Json(true);

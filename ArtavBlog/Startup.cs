@@ -1,3 +1,4 @@
+using ArtavBlog.Business.Base;
 using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
@@ -46,7 +47,7 @@ namespace ArtavBlog
             void LocalDependencyInjection()
             {
                 services.AddSignalR();
-                services.AddTransient<ISqlBaseRepository<Post>>();
+                services.AddTransient<ISqlBaseRepository<Post>, BaseSqlBusiness<Post>>();
                 //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
                 services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
             }

@@ -58,6 +58,12 @@ html {
   min-height: 100%;
 }
 
+.container{
+    left:0;
+    right:0;
+    width:100%;
+}
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
