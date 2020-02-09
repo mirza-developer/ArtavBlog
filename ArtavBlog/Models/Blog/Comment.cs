@@ -8,7 +8,7 @@ using ArtavBlog.Models.Base;
 
 namespace ArtavBlog.Models.Blog
 {
-    [Table("Blog.Comment")]
+    [Table("Comment", Schema = "Blog")]
     public class Comment : ModelObject
     {
         [Required]

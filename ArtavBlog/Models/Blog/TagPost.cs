@@ -7,7 +7,7 @@ using ArtavBlog.Models.Base;
 
 namespace ArtavBlog.Models.Blog
 {
-    [Table("Blog.TagPost")]
+    [Table("TagPost", Schema = "Blog")]
     public class TagPost : ModelObject
     {
         public string PostId { get; set; }

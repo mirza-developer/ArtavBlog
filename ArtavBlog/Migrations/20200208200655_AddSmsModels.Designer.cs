@@ -4,14 +4,16 @@ using ArtavBlog.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtavBlog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20200208200655_AddSmsModels")]
+    partial class AddSmsModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,20 +111,20 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "18d841f7-86ec-461a-bbbf-051eead307ba",
+                            Id = "7082a435-b897-4e9c-ac66-dda84ed8858f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "189e5a99-d049-46f3-84da-9d29413511e9",
-                            CreateDateAndTime = new DateTime(2020, 2, 8, 12, 27, 1, 304, DateTimeKind.Local).AddTicks(378),
+                            ConcurrencyStamp = "d15e911b-a15b-4ac5-abf4-24e747c9a01b",
+                            CreateDateAndTime = new DateTime(2020, 2, 8, 12, 6, 54, 584, DateTimeKind.Local).AddTicks(8711),
                             CreatorIdentityID = "NOONE!",
                             Email = "ali.qader3@gmail.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
-                            LastModifiedDateAndTime = new DateTime(2020, 2, 8, 12, 27, 1, 299, DateTimeKind.Local).AddTicks(5331),
+                            LastModifiedDateAndTime = new DateTime(2020, 2, 8, 12, 6, 54, 580, DateTimeKind.Local).AddTicks(5367),
                             LastModifierIdentityID = "NOONE!",
                             LockoutEnabled = false,
-                            PasswordHash = "AMBVz7/e4nO6LJYZAI7ty8y3rzagZh4Lovs912gAN/kLScoYmaO4mkkryEImRz5JtQ==",
+                            PasswordHash = "AAaqNx+NCSi22lUi3JM2NKv/OvC9XN1pUPQqQA9A/5p1NJMmG1JsKYGsxZgfEAzX2A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "82e7c7d1-db1d-4769-90fd-5359fb652fe6",
+                            SecurityStamp = "d51340b9-b491-4602-b384-68f35759d262",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -376,29 +378,6 @@ namespace ArtavBlog.Migrations
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
-                    b.Property<DateTime>("CreateDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatorIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifierIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("nvarchar(11)")
@@ -438,14 +417,14 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f0190a8-4548-403a-9ac1-70c68bd51e9e",
-                            ConcurrencyStamp = "35c8209c-7471-4c1b-b32a-7fe69c784361",
+                            Id = "c49e3368-deee-4fd6-9411-d882a0f7cf72",
+                            ConcurrencyStamp = "20bd7373-c310-4177-97c6-b3f06e29ba8e",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "9e2275d5-5266-447b-a5d6-239da841ca12",
-                            ConcurrencyStamp = "f6343988-7bb1-4d46-88fb-4610011008ad",
+                            Id = "c5e0824e-d859-4a31-8520-5eeadf030208",
+                            ConcurrencyStamp = "81a8654d-e466-4f18-81a7-f00bc8cc0413",
                             Name = "User"
                         });
                 });
@@ -537,13 +516,13 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "18d841f7-86ec-461a-bbbf-051eead307ba",
-                            RoleId = "3f0190a8-4548-403a-9ac1-70c68bd51e9e"
+                            UserId = "7082a435-b897-4e9c-ac66-dda84ed8858f",
+                            RoleId = "c49e3368-deee-4fd6-9411-d882a0f7cf72"
                         },
                         new
                         {
-                            UserId = "18d841f7-86ec-461a-bbbf-051eead307ba",
-                            RoleId = "9e2275d5-5266-447b-a5d6-239da841ca12"
+                            UserId = "7082a435-b897-4e9c-ac66-dda84ed8858f",
+                            RoleId = "c5e0824e-d859-4a31-8520-5eeadf030208"
                         });
                 });
 

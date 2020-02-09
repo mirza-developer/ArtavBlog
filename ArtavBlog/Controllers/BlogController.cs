@@ -26,24 +26,40 @@ namespace ArtavBlog.Controllers
 
         public IActionResult Index(MessageId messageId = MessageId.NoAction)
         {
-            return View(_repos.GetAllData());
+            return View(_repos.GetDataByCustomFilter(p => !p.IsDeleted));
         }
 
         public async Task<IActionResult> Create()
         {
-
             return View(await ViewRequirements());
             async Task<Post> ViewRequirements()
             {
                 var itemsList = new List<DropDownItem>();
-                for (int i = 0; i <= 4; i++)
+                itemsList.Add(new DropDownItem()
                 {
-                    itemsList.Add(new DropDownItem()
-                    {
-                        Display = i.ToString(),
-                        Value = i
-                    });
-                }
+                    Display = "مطلب معمولی",
+                    Value = 0
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب اول - صفحه اصلی",
+                    Value = 1
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب دوم - صفحه اصلی",
+                    Value = 2
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب سوم - صفحه اصلی",
+                    Value = 3
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب چهارم - صفحه اصلی",
+                    Value = 4
+                });
                 ViewData["OrderList"] = new SelectList(itemsList, "Value", "Display");
                 return new Post()
                 {
@@ -52,15 +68,71 @@ namespace ArtavBlog.Controllers
             }
         }
 
+        public async Task<IActionResult> Details(string postId)
+        {
+            await ViewRequirements();
+            return View("Create", _repos.GetSingleDataById(postId));
+            async Task ViewRequirements()
+            {
+                var itemsList = new List<DropDownItem>();
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب معمولی",
+                        Value = 0
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب اول - صفحه اصلی",
+                    Value = 1
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب دوم - صفحه اصلی",
+                    Value = 2
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب سوم - صفحه اصلی",
+                    Value = 3
+                });
+                itemsList.Add(new DropDownItem()
+                {
+                    Display = "مطلب چهارم - صفحه اصلی",
+                    Value = 4
+                });
+                ViewData["OrderList"] = new SelectList(itemsList, "Value", "Display");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Search(string q)
+        {
+            return View("Index", _repos.GetDataByCustomFilter(p => !p.IsDeleted &&
+             (p.Title.Contains(q) || p.ContentInBrief.Contains(q) || p.ContentHtml.Contains(q))
+            ));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Post dataPost)
         {
             await ViewRequirements();
-            if (await _repos.InsertInstance(dataPost, false))
-                return RedirectToAction("Index", new { messageId = MessageId.Success });
+            if (!_repos.GetDataByCustomFilter(p => !p.IsDeleted && p.ID == dataPost.ID).Any())
+            {
+                if (await _repos.InsertInstance(dataPost, false))
+                    return RedirectToAction("Index", new { messageId = MessageId.Success });
+                else
+                    return RedirectToAction("Index", new { messageId = MessageId.Failure });
+            }
             else
-                return RedirectToAction("Index", new { messageId = MessageId.Failure });
+            {
+                if (await _repos.UpdateInstance(dataPost))
+                    return RedirectToAction("Index", new { messageId = MessageId.Success });
+                else
+                    return RedirectToAction("Index", new { messageId = MessageId.Failure });
+            }
+
             async Task ViewRequirements()
             {
                 dataPost.CreateDateAndTime = DateTime.Now;
@@ -68,7 +140,6 @@ namespace ArtavBlog.Controllers
                 dataPost.IsDeleted = false;
                 dataPost.LastModifierIdentityID = Guid.NewGuid().ToString();// User.Identity.Name;
                 dataPost.CreatorIdentityID = Guid.NewGuid().ToString();// User.Identity.Name;
-                dataPost.PostPictureName = string.Empty;
             }
         }
 
@@ -80,10 +151,10 @@ namespace ArtavBlog.Controllers
                 if (file != null && file.Length > 0)
                 {
                     string pathWeb = _hostingEnvironment.WebRootPath;
-                    string savePath = string.Format("{0}/images/Post/{1}", pathWeb,postId);
+                    string savePath = string.Format("{0}/images/Post/{1}", pathWeb, postId);
                     if (!Directory.Exists(savePath))
                         Directory.CreateDirectory(savePath);
-                    string savePathFull = string.Format("{0}/{1}" , savePath, file.FileName);
+                    string savePathFull = string.Format("{0}/{1}", savePath, file.FileName);
                     if (System.IO.File.Exists(savePathFull))
                         System.IO.File.Delete(savePathFull);
                     using var stream = System.IO.File.Create(savePathFull);

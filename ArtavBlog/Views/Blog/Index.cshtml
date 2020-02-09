@@ -14,13 +14,13 @@
         <div class="col-md-8">
             @foreach (ArtavBlog.Models.Blog.Post item in Model)
             {
-                 var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" +item.ID +"/"+ item.PostPictureName + ".png";
+                 var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" +item.ID +"/"+ item.PostPictureName;
                 <div class="card mb-4">
                     <img class="card-img-top" src="@picUrl" alt="Card image cap">
                     <div class="card-body">
                         <h2 class="card-title">@item.Title</h2>
                         <p class="card-text">@item.ContentInBrief</p>
-                        <a href="#" class="btn btn-primary">بیشتر بدانید &rarr;</a>
+                        <a href="/blog/details?postId=@item.ID" class="btn btn-primary">بیشتر بدانید &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         ارسال شده در 
@@ -30,18 +30,23 @@
             }
         </div>
         <div class="col-md-4">
-            <div class="card mb-4">
-                <h5 class="card-header">Search</h5>
+            <div class="card mb-4 text-align-right">
+                <h5 class="card-header">جستجو</h5>
                 <div class="card-body">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button">Go!</button>
-                        </span>
+                        <form asp-controller="Blog" asp-action="Search" method="post">
+                            @Html.AntiForgeryToken()
+                            <input id="q" name="q" type="text" class="form-control" placeholder="مطلب موردنظر...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </span>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="card my-4">
+            <div class="card my-4 text-align-right">
                 <h5 class="card-header">تبلیغات</h5>
                 <div class="card-body">
                    برای انجام تبلیغ خود در سایت با ما در تماس باشید

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Blog;
+using ArtavBlog.Models.Messaging.Sms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ namespace ArtavBlog.Models.Base
         public DbSet<Post> PostDb { get; set; }
         public DbSet<Tag> TagDb { get; set; }
         public DbSet<TagPost> TagPostDb { get; set; }
+        public DbSet<PhoneNumber> PhoneNumberDb { get; set; }
+        public DbSet<Message> MessageDb { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +51,14 @@ namespace ArtavBlog.Models.Base
                 .WithOne(p => p.Post_Comment)
                 .HasForeignKey(p => p.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PhoneNumber>()
+                .HasMany(p => p.Message_List)
+                .WithOne(p => p.PhoneNumber_Message)
+                .HasForeignKey(p => p.PhoneNumberId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Post>().Property(e => e.UniqueIntegerID).Metadata.SetBeforeSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
 
             void UserRegister()
             {

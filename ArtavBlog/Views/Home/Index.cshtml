@@ -29,11 +29,11 @@
             @foreach (ArtavBlog.Models.Blog.Post item in Model)
             {
                 var activeStat = (indexForeach == 1 ? "active" : "");
-                var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" + item.ID + "/" + item.PostPictureName + ".png";
+                var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" + item.ID + "/" + item.PostPictureName;
                 <div class="carousel-item @activeStat" style="background-image: url('@picUrl')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>@item.Title</h3>
-                        <p>@item.ContentInBrief</p>
+                        <h3><a class="no-dec-link text-white" href="/blog/post?postId=@item.ID">@item.Title</a></h3>
+                        <p><a class="no-dec-link text-white" href="/blog/post?postId=@item.ID">@item.ContentInBrief</a></p>
                     </div>
                 </div>
                 indexForeach++;

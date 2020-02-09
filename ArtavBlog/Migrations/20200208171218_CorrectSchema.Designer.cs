@@ -4,14 +4,16 @@ using ArtavBlog.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtavBlog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20200208171218_CorrectSchema")]
+    partial class CorrectSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,20 +111,20 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "18d841f7-86ec-461a-bbbf-051eead307ba",
+                            Id = "faea0071-b9e5-40d1-a32a-c99bb798b942",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "189e5a99-d049-46f3-84da-9d29413511e9",
-                            CreateDateAndTime = new DateTime(2020, 2, 8, 12, 27, 1, 304, DateTimeKind.Local).AddTicks(378),
+                            ConcurrencyStamp = "c3b36cc1-c867-4b8b-90d8-ccd5f26bd140",
+                            CreateDateAndTime = new DateTime(2020, 2, 8, 9, 12, 17, 590, DateTimeKind.Local).AddTicks(9627),
                             CreatorIdentityID = "NOONE!",
                             Email = "ali.qader3@gmail.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
-                            LastModifiedDateAndTime = new DateTime(2020, 2, 8, 12, 27, 1, 299, DateTimeKind.Local).AddTicks(5331),
+                            LastModifiedDateAndTime = new DateTime(2020, 2, 8, 9, 12, 17, 586, DateTimeKind.Local).AddTicks(2545),
                             LastModifierIdentityID = "NOONE!",
                             LockoutEnabled = false,
-                            PasswordHash = "AMBVz7/e4nO6LJYZAI7ty8y3rzagZh4Lovs912gAN/kLScoYmaO4mkkryEImRz5JtQ==",
+                            PasswordHash = "AOHzoDt7xqT7K6eQekPfAwlDmrciEvUBOS78qirfC+2GzILyq9QN1jBmzmlzCKB9Xg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "82e7c7d1-db1d-4769-90fd-5359fb652fe6",
+                            SecurityStamp = "f9b983c4-e386-4812-8982-f099c64dc2b0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -325,90 +327,6 @@ namespace ArtavBlog.Migrations
                     b.ToTable("TagPost","Blog");
                 });
 
-            modelBuilder.Entity("ArtavBlog.Models.Messaging.Sms.Message", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreateDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatorIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifierIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("MessageText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PhoneNumberId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PhoneNumberId");
-
-                    b.ToTable("Message","Sms");
-                });
-
-            modelBuilder.Entity("ArtavBlog.Models.Messaging.Sms.PhoneNumber", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreateDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatorIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDateAndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifierIdentityID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(11)")
-                        .HasMaxLength(11);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("PhoneNumber","Sms");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -438,14 +356,14 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f0190a8-4548-403a-9ac1-70c68bd51e9e",
-                            ConcurrencyStamp = "35c8209c-7471-4c1b-b32a-7fe69c784361",
+                            Id = "cd55bbea-8837-49b3-8b8f-d0357920bf68",
+                            ConcurrencyStamp = "c6c961fe-8614-4bda-86d2-381deae6ad5a",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "9e2275d5-5266-447b-a5d6-239da841ca12",
-                            ConcurrencyStamp = "f6343988-7bb1-4d46-88fb-4610011008ad",
+                            Id = "c2e3094c-8be5-4f87-8dd8-364ba6914e42",
+                            ConcurrencyStamp = "0c83e081-0756-4491-bdd9-7fffb305e7f4",
                             Name = "User"
                         });
                 });
@@ -537,13 +455,13 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "18d841f7-86ec-461a-bbbf-051eead307ba",
-                            RoleId = "3f0190a8-4548-403a-9ac1-70c68bd51e9e"
+                            UserId = "faea0071-b9e5-40d1-a32a-c99bb798b942",
+                            RoleId = "cd55bbea-8837-49b3-8b8f-d0357920bf68"
                         },
                         new
                         {
-                            UserId = "18d841f7-86ec-461a-bbbf-051eead307ba",
-                            RoleId = "9e2275d5-5266-447b-a5d6-239da841ca12"
+                            UserId = "faea0071-b9e5-40d1-a32a-c99bb798b942",
+                            RoleId = "c2e3094c-8be5-4f87-8dd8-364ba6914e42"
                         });
                 });
 
@@ -586,15 +504,6 @@ namespace ArtavBlog.Migrations
                         .WithMany("TagPost_List")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("ArtavBlog.Models.Messaging.Sms.Message", b =>
-                {
-                    b.HasOne("ArtavBlog.Models.Messaging.Sms.PhoneNumber", "PhoneNumber_Message")
-                        .WithMany("Message_List")
-                        .HasForeignKey("PhoneNumberId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

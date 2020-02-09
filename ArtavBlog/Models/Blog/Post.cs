@@ -9,7 +9,7 @@ using ArtavBlog.Resources;
 
 namespace ArtavBlog.Models.Blog
 {
-    [Table("Blog.Post")]
+    [Table("Post",Schema = "Blog")]
     public class Post : ModelObject
     {
         [Required]
@@ -34,7 +34,7 @@ namespace ArtavBlog.Models.Blog
         public string ContentInBrief { get; set; }
 
         [Required]
-        [Display(Name = "عکس")]
+        [Display(Name = "عکس اصلی مطلب")]
         public string PostPictureName { get; set; }
 
         public virtual ICollection<TagPost> TagPost_List { get; set; }

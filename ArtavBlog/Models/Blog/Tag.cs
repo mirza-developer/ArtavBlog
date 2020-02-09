@@ -8,7 +8,7 @@ using ArtavBlog.Models.Base;
 
 namespace ArtavBlog.Models.Blog
 {
-    [Table("Blog.Tag")]
+    [Table("Tag", Schema = "Blog")]
     public class Tag : ModelObject
     {
         [Required]
