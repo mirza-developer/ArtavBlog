@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<ArtavBlog.Models.Blog.Post>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ArtavBlog.Models.Account.ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "Index";
     var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
@@ -14,16 +16,25 @@
         <div class="col-md-8">
             @foreach (ArtavBlog.Models.Blog.Post item in Model)
             {
-                 var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" +item.ID +"/"+ item.PostPictureName;
+                var picUrl = "/Setting/GetImageByUrl?imageUrl=~/images/Post/" + item.ID + "/" + item.PostPictureName;
                 <div class="card mb-4">
                     <img class="card-img-top" src="@picUrl" alt="Card image cap">
                     <div class="card-body">
                         <h2 class="card-title">@item.Title</h2>
                         <p class="card-text">@item.ContentInBrief</p>
-                        <a href="/blog/details?postId=@item.ID" class="btn btn-primary">بیشتر بدانید &rarr;</a>
+                        <a href="/blog/post?postId=@item.ID" class="btn btn-primary">بیشتر بدانید &rarr;</a>
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                            @if (User.IsInRole("User"))
+                            {
+                                <a href="/blog/details?postId=@item.ID" class="btn btn-success">تغییر &rarr;</a>
+                            }
+                        }
+
+
                     </div>
                     <div class="card-footer text-muted">
-                        ارسال شده در 
+                        ارسال شده در
                         @shamsi.GregorianToPersian(item.CreateDateAndTime)
                     </div>
                 </div>
@@ -49,7 +60,7 @@
             <div class="card my-4 text-align-right">
                 <h5 class="card-header">تبلیغات</h5>
                 <div class="card-body">
-                   برای انجام تبلیغ خود در سایت با ما در تماس باشید
+                    برای انجام تبلیغ خود در سایت با ما در تماس باشید
                 </div>
             </div>
 
