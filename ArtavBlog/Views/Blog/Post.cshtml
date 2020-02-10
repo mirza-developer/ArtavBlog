@@ -1,7 +1,11 @@
-﻿
+﻿@model Byte[]
 @{
     ViewData["Title"] = "Post";
 }
-
+<script src="~/js/clipboard.min.js"></script>
+<script src="~/js/site/blog/Post.js"></script>
 <h1>Post</h1>
+
+<img class="clipboard-target" height="200" width="200" data-clipboard-action="copy" data-clipboard-text="@ViewData["Url"]"
+    title="برای کپی شدن لینک مطلب روی بارکد کلیک کنید" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model))" />
 

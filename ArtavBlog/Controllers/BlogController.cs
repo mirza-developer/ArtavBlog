@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using QRCoder;
 
 namespace ArtavBlog.Controllers
 {
@@ -169,6 +171,25 @@ namespace ArtavBlog.Controllers
             catch (Exception ex)
             {
                 return Json(false);
+            }
+        }
+
+        public IActionResult Post()
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            ViewData["Url"] = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(Request);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(ViewData["Url"].ToString(),
+            QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+            Bitmap qrCodeImage = qrCode.GetGraphic(20);
+            return View(GetImageBytesByBitmap(qrCodeImage));
+            Byte[] GetImageBytesByBitmap(Bitmap img)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                    return stream.ToArray();
+                }
             }
         }
     }
