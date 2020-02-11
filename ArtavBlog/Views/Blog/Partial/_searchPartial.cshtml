@@ -1,0 +1,16 @@
+﻿<div class="card mb-6 text-align-right">
+    <h5 class="card-header">جستجو</h5>
+    <div class="card-body">
+        <div class="input-group">
+            <form asp-controller="Blog" asp-action="Search" method="post">
+                @Html.AntiForgeryToken()
+                <input id="q" name="q" type="text" class="form-control" placeholder="مطلب موردنظر...">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>

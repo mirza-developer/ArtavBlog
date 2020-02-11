@@ -43,16 +43,12 @@ namespace ArtavBlog.Models.Blog
 
     public class PostViewModel
     {
-        [Required]
-        [StringLength(128)]
+        public string ID { get; set; }
         public string Title { get; set; }
-
-        [Required]
         public string ContentHtml { get; set; }
-
-        [Required]
-        public string PostPictureLocation { get; set; }
-
-        public int IsMainPost { get; set; }
+        public string ContentInBrief { get; set; }
+        public string PostPictureName { get; set; }
+        public DateTime LastModifiedDateAndTime { get; set; }
+        public Byte[] Barcode { get; set; }
     }
 }

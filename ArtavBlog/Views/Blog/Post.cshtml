@@ -1,11 +1,131 @@
-﻿@model Byte[]
+﻿@using ArtavBlog.Models.Blog;
+@model PostViewModel
 @{
     ViewData["Title"] = "Post";
+    var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
 }
 <script src="~/js/clipboard.min.js"></script>
 <script src="~/js/site/blog/Post.js"></script>
-<h1>Post</h1>
+@*<link href="~/lib/jquery-ui/jquery-ui.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>*@
+<p></p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 text-align-right">
+            <h1 class="mt-4 ">@Model.Title</h1>
+            <p class="lead">
+                نوشته شده توسط
+                <a href="#">مدیر سایت</a>
+                @* <a href="@Request.UrlReferrer"><i class="fas fa-arrow-circle-left"></i></a>*@
+                @if (User.IsInRole("User"))
+                {
+                    <a href="/dashboard/Edit?postId=@Model.ID&passedMessageId=0"><i class="fas fa-pencil-alt"></i></a>
+                }
+            </p>
+            <hr>
+            <p>
+                ارسال شده در  @shamsi.GregorianToPersian(Model.LastModifiedDateAndTime) - @Model.LastModifiedDateAndTime.ToShortTimeString()
+                @*@if (User.IsInRole("User"))
+                    {
+                        <a title="ویرایش پست"
+                           href="/dashboard/editpost?postId=@Model.ID">
+                            <i class="fas fa-file-signature"></i>
+                        </a>
+                    }*@
+            </p>
+            <hr>
+            <img class="img-fluid rounded" src="/Setting/GetImageByUrl?imageUrl=~/images/Post/@Model.ID/@Model.PostPictureName" alt="عکس اصلی مطلب">
 
-<img class="clipboard-target" height="200" width="200" data-clipboard-action="copy" data-clipboard-text="@ViewData["Url"]"
-    title="برای کپی شدن لینک مطلب روی بارکد کلیک کنید" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model))" />
+            <p></p>
+            <div class="text-align-right" style="border: black">
+                @Html.Raw(Model.ContentHtml)
+            </div>
+
+            <div class="div-share">
+                <h4>
+                    این مطلب را در شبکه های اجتماعی به اشتراک بگذارید
+                </h4>
+                <img class="clipboard-target" height="100" width="100" data-clipboard-action="copy" data-clipboard-text="@ViewData["Url"]"
+                     title="برای کپی شدن لینک مطلب روی بارکد کلیک کنید" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Barcode))" />
+                <a class="twitter-share-button" title="برای اشتراک گذاری مطلب کلیک کنید"
+                   href="https://twitter.com/intent/tweet?text= @Model.Title- مجموعه فرهنگی ورزشی کوثر ">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+            </div>
+            <hr>
+            <p>
+                نظرات شما پس از تائید مدیر سایت منتشر خواهد شد
+            </p>
+            <div class="card my-4">
+                <h5 class="card-header">نظر شما :</h5>
+                <div class="card-body">
+                    @using (Html.BeginForm("Comment", "Blog", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <input type="text" class="form-control" name="id" data-val="true" hidden value=@Model.ID />
+                        <div class="form-group">
+                            <label>
+                                نام* :
+                            </label>
+                            <input type="text" class="form-control" name="name" data-val="true" required maxlength="128" />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                نظر* :
+                            </label>
+                            <textarea class="form-control" rows="4" cols="7" name="message" data-val="true" required maxlength="512"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                    }
+                </div>
+            </div>
+            <p></p>
+            @*{
+                <input id="comment-id" type="hidden" value="" />
+                foreach (Comment item in Model..Where(p => p.IsVerified != null && ((bool)p.IsVerified)).OrderBy(p => p.CreateDate).ToList())
+                {
+                    <div id=@item.ID class="media mb-4">
+                        @if (User.IsInRole("User"))
+                        {
+                            <a class="link-delete" data-toggle="modal" style="cursor: pointer" data-target="#modal-question" data=@item.ID>
+                                <i class="far fa-trash-alt" style="color: red"></i>
+                            </a>
+                            <br />
+                        }
+                        <i class="far fa-comment" style="color: dodgerblue"></i>
+                        <div class="media-body">
+                            <h5 class="mt-0"> @item.Sender</h5>
+                            @item.Text
+                        </div>
+                    </div>
+                }
+            }*@
+
+            <div class="modal fade" id="modal-question" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" id="button-closemodal" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">توجه</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                حذف نظر را تائید می کنید؟
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning" data-dismiss="modal">خیر</button>
+                            <button id="btn-deletecomment" class="btn btn-info" data-dismiss="modal">بلی</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("Partial/_blogSidebar")
+    </div>
+</div>
+
+
+
 

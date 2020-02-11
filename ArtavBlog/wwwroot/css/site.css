@@ -112,3 +112,7 @@ body {
 .no-dec-link{
     text-decoration:none;
 }
+
+.clipboard-target{
+    cursor:pointer;
+}

@@ -58,7 +58,11 @@ namespace ArtavBlog.Models.Base
                 .HasForeignKey(p => p.PhoneNumberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Post>().Property(e => e.UniqueIntegerID).Metadata.SetBeforeSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
+            modelBuilder
+                .Entity<Post>()
+                .Property(e => e.UniqueIntegerID)
+                .Metadata
+                .SetBeforeSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
 
             void UserRegister()
             {

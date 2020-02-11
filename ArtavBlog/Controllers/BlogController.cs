@@ -80,7 +80,7 @@ namespace ArtavBlog.Controllers
                 itemsList.Add(new DropDownItem()
                 {
                     Display = "مطلب معمولی",
-                        Value = 0
+                    Value = 0
                 });
                 itemsList.Add(new DropDownItem()
                 {
@@ -174,23 +174,39 @@ namespace ArtavBlog.Controllers
             }
         }
 
-        public IActionResult Post()
+        public IActionResult Post(string postId)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            ViewData["Url"] = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(Request);
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(ViewData["Url"].ToString(),
-            QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            return View(GetImageBytesByBitmap(qrCodeImage));
-            Byte[] GetImageBytesByBitmap(Bitmap img)
+            var instanceMain = _repos.GetSingleDataById(postId);
+            var instanceSend = new PostViewModel()
             {
-                using (MemoryStream stream = new MemoryStream())
+                ID = instanceMain.ID,
+                ContentHtml = instanceMain.ContentHtml,
+                ContentInBrief = instanceMain.ContentInBrief,
+                Title = instanceMain.Title,
+                PostPictureName = instanceMain.PostPictureName,
+                LastModifiedDateAndTime = instanceMain.LastModifiedDateAndTime
+            }; 
+            instanceSend.Barcode = GetPostBrcode();
+            return View(instanceSend);
+            Byte[] GetPostBrcode()
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                ViewData["Url"] = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetDisplayUrl(Request);
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(ViewData["Url"].ToString(),
+                QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
+                Bitmap qrCodeImage = qrCode.GetGraphic(20);
+                return GetImageBytesByBitmap(qrCodeImage);
+                Byte[] GetImageBytesByBitmap(Bitmap img)
                 {
-                    img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                    return stream.ToArray();
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                        return stream.ToArray();
+                    }
                 }
             }
+
         }
     }
 }
