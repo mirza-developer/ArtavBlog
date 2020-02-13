@@ -2,69 +2,40 @@
 <div class="container chatbox">
     <div class="row pt-3">
         <div class="chat-main">
-            <div class="col-md-12 chat-header rounded-top bg-primary text-white">
+            <div class="col-md-12 chat-header rounded-top bg-dark text-white">
                 <div class="row">
                     <div class="col-md-6 username pl-2">
                         <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                        <h6 class="m-0">پشتیبانی سایت</h6>
+                        <h6 class="m-0 text-right">پشتیبانی سایت</h6>
                     </div>
-                    <div class="col-md-6 options text-right pr-2">
+                    <div class="col-md-6 options text-left pr-2">
                         <i class="fa fa-times hide-chat-box" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
             <div class="chat-content">
                 <div class="col-md-12 chats border">
-                    <ul class="p-0">
+                    <ul id="support-chatlist" class="p-0">
                         <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
-                            hiii
+                            سلام.چطور میتونم کمکتون کنم؟
                         </li>
-                        <li class="p-1 rounded mb-1">
-                            <div class="receive-msg">
-                                <img src="http://nicesnippets.com/demo/image1.jpg">
-                                <div class="receive-msg-desc  text-center mt-1 ml-1 pl-2 pr-2">
-                                    <p class="pl-2 pr-2 rounded">hello</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
-                            how are you ???
-                        </li>
-                        <li class="p-1 rounded mb-1">
-                            <div class="receive-msg">
-                                <div class="receive-msg-img">
+                        @*<li class="p-1 rounded mb-1">
+                                <div class="receive-msg">
                                     <img src="http://nicesnippets.com/demo/image1.jpg">
+                                    <div class="receive-msg-desc  text-center mt-1 ml-1 pl-2 pr-2">
+                                        <p class="pl-2 pr-2 rounded">hello</p>
+                                    </div>
                                 </div>
-                                <div class="receive-msg-desc rounded text-center mt-1 ml-1 pl-2 pr-2">
-                                    <p class="mb-0 mt-1 pl-2 pr-2 rounded-top rounded-right">I'm fine !!!</p>
-                                    <p class="mb-0 mt-1 pl-2 pr-2 rounded-bottom rounded-right">Where are you ?</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="pl-2 pr-2 bg-primary text-white text-center send-msg mb-1 rounded-top rounded-left">
-                            at california
-                        </li>
-                        <li class="pl-2 pr-2 bg-primary text-white text-center send-msg mb-1 rounded-bottom rounded-left">
-                            and where are you ?
-                        </li>
-                        <li class="p-1 rounded  mb-1">
-                            <div class="receive-msg">
-                                <img src="http://nicesnippets.com/demo/image1.jpg">
-                                <div class="receive-msg-desc rounded text-center mt-1 ml-1 pl-2 pr-2">
-                                    <p class="pl-2 pr-2 rounded">now i'm at new york city</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
-                            Ok
-                        </li>
+                            </li>*@
+
                     </ul>
                 </div>
                 <div class="col-md-12 message-box border pl-2 pr-2 border-top-0">
-                    <input id="txt-message" type="text" class="pl-0 pr-0 w-100" placeholder="Type a message..." />
+                    <input id="txt-message" type="text" class="pl-0 pr-0 w-100" placeholder="پیام خود را وارد کنید" />
                     <div class="tools">
-                        <button id="btn-send">
-                            </button> @*<i  class="fas fa-paper-plane m-0"></i>*@
+                        <button id="btn-send" class="btn btn-dark">
+                            ارسال
+                        </button> @*<i  class="fas fa-paper-plane m-0"></i>*@
                     </div>
                 </div>
             </div>
@@ -72,44 +43,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.hide-chat-box').click(function () {
-            debugger;
-            $('.chat-content').slideToggle();
-        });
-        "use strict";
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-        connection.on("ReceiveMessage", (user, message) => {
-            var username = user;
-            var messageText = message;
 
-        });
-
-        $('btn-send').click(function () {
-            debugger;
-            var message = $('txt-message').val();
-            connection.invoke("SendMessage", 'Guest', message).catch(err => console.error(err.toString()));
-            var li = $('li').addClass('p-1').addClass('rounded').addClass('mb-1');//document.createElement("li").classList.add('  ');
-            var divParent = $('div').addClass('receive-msg');
-            li.append(divParent);
-            var image = $('img').attr('src', 'http://nicesnippets.com/demo/image1.jpg');
-            divParent.append(image);
-            var divChild = $('img')
-                .addClass('receive-msg-desc')
-                .addClass('text-center')
-                .addClass('mt-1')
-                .addClass('pl-2')
-                .addClass('pr-2');
-            var pMain = $('img').addClass('pl-2').addClass('pr-2').addClass('rounded').html(message);
-            divChild.append(pMain);
-            divParent.append(divChild);
-            event.preventDefault();
-        });
-
-
-    });
-</script>
 
 <style type="text/css">
     .chat-main {
@@ -201,3 +135,54 @@
     }
 </style>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.hide-chat-box').click(function () {
+            debugger;
+            $('.chat-content').slideToggle();
+        });
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+        connection.start().catch(function (e) {
+        });
+        connection.on("ReceiveMessage", (user, message) => {
+            var username = user;
+            var messageText = message;
+
+        });
+
+        $('#btn-send').click(function () {
+            debugger;
+            var message = $('#txt-message').val();
+            if (message === '') {
+                return;
+            }
+            $('#txt-message').val('');
+          //  connection.invoke("WebChat", 'Guest', message).catch(err => console.error(err.toString()));
+
+            var li = $('<li>').addClass('p-1').addClass('rounded').addClass('mb-1');//document.createElement("li").classList.add('  ');
+            var divParent = $('<div>').addClass('receive-msg');
+            li.append(divParent);
+            var image = $('<img>').attr('src', 'http://nicesnippets.com/demo/image1.jpg');
+            divParent.append(image);
+            var divChild = $('<div>')
+                .addClass('receive-msg-desc')
+                .addClass('text-left')
+                .addClass('mt-1')
+                .addClass('pl-2')
+                .addClass('pr-2');
+            var pMain = $('<div>').addClass('pl-2').addClass('pr-2').addClass('rounded').html(message);
+            divChild.append(pMain);
+            divParent.append(divChild);
+            li.append(divParent);
+            $('#support-chatlist').append(li);
+            event.preventDefault();
+        });
+        $(document).on('onbeforeunload', function () {
+            debugger;
+            connection.stop().catch(function (e) {
+            });
+        });
+
+
+    });
+</script>

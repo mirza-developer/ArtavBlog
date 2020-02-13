@@ -13,10 +13,10 @@ namespace ArtavBlog.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
-        public async Task SupportChat(string connectionId, string message)
-        {
-            await Clients.Client(connectionId).SendAsync("ReceiveMessage",  message);
-        }
+        //public async Task SupportChat(string connectionId, string message)
+        //{
+        //    await Clients.Client(connectionId).SendAsync("ReceiveMessage",  message);
+        //}
 
         public override Task OnConnectedAsync()
         {
