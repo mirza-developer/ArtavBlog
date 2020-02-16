@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Blog;
+using ArtavBlog.Models.Messaging.CustomerCare;
 using ArtavBlog.Models.Messaging.Sms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -22,6 +23,7 @@ namespace ArtavBlog.Models.Base
         public DbSet<TagPost> TagPostDb { get; set; }
         public DbSet<PhoneNumber> PhoneNumberDb { get; set; }
         public DbSet<Message> MessageDb { get; set; }
+        public DbSet<CareMessage> CareMessageDb { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

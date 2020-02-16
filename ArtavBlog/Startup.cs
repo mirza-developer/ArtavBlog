@@ -3,6 +3,7 @@ using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
 using ArtavBlog.Models.Blog;
+using ArtavBlog.Models.Messaging.CustomerCare;
 using ArtavBlog.Models.Messaging.Sms;
 using ArtavBlog.Repository.Base;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +52,7 @@ namespace ArtavBlog
                 services.AddSignalR();
                 services.AddTransient<ISqlBaseRepository<Post>, BaseSqlBusiness<Post>>();
                 services.AddTransient<ISqlBaseRepository<PhoneNumber>, BaseSqlBusiness<PhoneNumber>>();
+                services.AddTransient<ISqlBaseRepository<CareMessage>, BaseSqlBusiness<CareMessage>>();
                 //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
                 services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
             }

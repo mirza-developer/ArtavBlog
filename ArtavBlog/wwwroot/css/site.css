@@ -82,6 +82,11 @@ body {
     direction: rtl !important
 }
 
+.text-align-left {
+    text-align: left !important;
+    direction: rtl !important
+}
+
 .text-align-center {
     text-align: center !important;
     direction: rtl !important;
@@ -115,4 +120,17 @@ body {
 
 .clipboard-target{
     cursor:pointer;
+}
+
+.noresize {
+    resize: none;
+}
+
+#chat-customercare {
+    border: solid 2px #b8b8b8;
+    border-top: none !important;
+}
+
+.btn-panel {
+    border-bottom: solid 2px #b8b8b8;
 }

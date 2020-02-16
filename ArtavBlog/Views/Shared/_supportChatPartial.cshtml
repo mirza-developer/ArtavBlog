@@ -21,8 +21,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-12 message-box border pl-2 pr-2 border-top-0">
-                    <input id="txt-message" type="text" class="pl-0 pr-0 w-100" placeholder="پیام خود را وارد کنید" />
+                <div class="col-md-12 message-box border pl-2 pr-2 border-top-1">
+                    <textarea id="txt-message" class="pl-0 pr-0 w-100 noresize" placeholder="پیام خود را وارد کنید" ></textarea>
+                    @*<input id="txt-message" type="text" class="pl-0 pr-0 w-100" placeholder="پیام خود را وارد کنید" />*@
                     <div class="tools">
                         <button id="btn-send" class="btn btn-dark">
                             ارسال
@@ -128,16 +129,15 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var userChatTag = $('<img>').attr('src', '/setting/GetImageByUrl?imageUrl=~/images/app/user.png');
-        $('.hide-chat-box').click(function () {
-            debugger;
+         $('.hide-chat-box').click(function () {
             $('.chat-content').slideToggle();
-        });
+         });
+        $('.chat-content').slideToggle();
+        var userChatTag = $('<img>').attr('src', '/setting/GetImageByUrl?imageUrl=~/images/app/user.png');
         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
         connection.start().catch(function (e) {
         });
-        connection.on("ReceiveMessage", (user, message) => {
-            var username = user;
+        connection.on("GuestReceive", (message) => {
             var messageText = message;
             var li = $('<li>').addClass('pl-2')
                 .addClass('rounded')
@@ -157,7 +157,7 @@
                 return;
             }
             $('#txt-message').val('');
-              connection.invoke("WebChat", 'Guest', message).catch(err => console.error(err.toString()));
+            connection.invoke('GuestSend', message).catch(err => console.error(err.toString()));
             var li = $('<li>').addClass('p-1').addClass('rounded').addClass('mb-1');//document.createElement("li").classList.add('  ');
             var divParent = $('<div>').addClass('receive-msg');
             li.append(divParent);
@@ -176,10 +176,7 @@
             $('#support-chatlist').append(li);
             event.preventDefault();
         });
-        $(document).on('onbeforeunload', function () {
-            connection.stop().catch(function (e) {
-            });
-        });
+        
 
 
     });
