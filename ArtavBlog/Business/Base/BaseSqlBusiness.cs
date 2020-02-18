@@ -81,5 +81,17 @@ namespace ArtavBlog.Business.Base
         {
             _context.Dispose();
         }
+
+        public virtual async Task<bool> UpdateRange(IEnumerable<T> instance)
+        {
+            _dataList.UpdateRange(instance);
+            return await _context.SaveChangesAsync() == 1;
+        }
+
+        public List<T> GetDataByQuery(string queryText)
+        {
+            
+            return _dataList.FromSqlRaw(queryText).ToList();
+        }
     }
 }

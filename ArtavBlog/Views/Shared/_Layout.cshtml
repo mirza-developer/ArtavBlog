@@ -19,7 +19,8 @@
     <script src="~/js/site/home/home.js"></script>
 </head>
 <body class="k-rtl">
-    @if (!SignInManager.IsSignedIn(User))
+    @*@if (!SignInManager.IsSignedIn(User))*@
+    @if (false)
     {
         <header>
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
@@ -99,44 +100,45 @@
 
         </main>
     </div>
-
-    <footer class="py-5 text-align-center" style=" position: static;
+    @if (false)
+    {
+        <footer class="py-5 text-align-center" style=" position: static;
     left: 0;
     bottom: 0;
     background-color: deepskyblue;
     height: 300px;
     width:100%;">
-        <div class="row ">
-            <div class="card-footer " style="width: 50%;right:15px;">
-                <p style="right:15px;"> <h5>برای اطلاع از آخرین اخبار شماره تلفن خود را وارد کنید</h5></p>
-                <div id="div-inputnumber" class="col-md-4" style="right:230px;">
-                    <p> <input type="text" placeholder="09********" dir="ltr" class="form-control" id="input-phonenumber" /></p>
+            <div class="row ">
+                <div class="card-footer " style="width: 50%;right:15px;">
+                    <p style="right:15px;"> <h5>برای اطلاع از آخرین اخبار شماره تلفن خود را وارد کنید</h5></p>
+                    <div id="div-inputnumber" class="col-md-4" style="right:230px;">
+                        <p> <input type="text" placeholder="09********" dir="ltr" class="form-control" id="input-phonenumber" /></p>
+                    </div>
+                    <div id="div-thanks" hidden>
+                        <p><h5 class="text-success">از همراهی شما متشکریم</h5><i class="fas fa-laugh-wink phone-icon"></i></p>
+                    </div>
+                    <div id="div-wait" hidden>
+                        <p><h5 class="text-warning">چند لحظه صبر کنید</h5><i class="far fa-clock phone-icon"></i></p>
+                    </div>
+                    <div id="div-unsuccess" hidden>
+                        <p><h5 class="text-danger">در ثبت اطلاعات مشکلی بوجود آمده است</h5><i class="fas fa-sad-tear phone-icon"></i></p>
+                    </div>
+                    <div id="div-textvalidation" hidden>
+                        <p><h5 class="text-danger">لطفا تلفن خود را در فرمت درست وارد کنید</h5></p>
+                    </div>
+                    <p style="left: 50px"><button id="button-savenumber" class="btn btn-success">ثبت</button></p>
                 </div>
-                <div id="div-thanks" hidden>
-                    <p><h5 class="text-success">از همراهی شما متشکریم</h5><i class="fas fa-laugh-wink phone-icon"></i></p>
+                <div class="card-footer" style="width: 50%">
+                    <p><h5>با ما در ارتباط باشید</h5></p>
+                    <p>تلفن: <a href="tel:021-66860414" style="color: black">66860414 <i class="fa fa-mobile-alt"></i></a></p>
+                    <p>پست الکترونیکی: <a href="mailto:info@kosarsport.ir" style="color: black">info@kosarsport.ir <i class="far fa-envelope"></i></a></p>
+                    <p>کانال تلگرام: <a href="https://t.me/kosarcomplex" style="color: black">kosarcomplex@@ <i class="fab fa-telegram"></i></a></p>
+                    @*<p><a href="/home/about" style="color: white" class="nav-link">درباره ما</a></p>*@
                 </div>
-                <div id="div-wait" hidden>
-                    <p><h5 class="text-warning">چند لحظه صبر کنید</h5><i class="far fa-clock phone-icon"></i></p>
-                </div>
-                <div id="div-unsuccess" hidden>
-                    <p><h5 class="text-danger">در ثبت اطلاعات مشکلی بوجود آمده است</h5><i class="fas fa-sad-tear phone-icon"></i></p>
-                </div>
-                <div id="div-textvalidation" hidden>
-                    <p><h5 class="text-danger">لطفا تلفن خود را در فرمت درست وارد کنید</h5></p>
-                </div>
-                <p style="left: 50px"><button id="button-savenumber" class="btn btn-success">ثبت</button></p>
-            </div>
-            <div class="card-footer" style="width: 50%">
-                <p><h5>با ما در ارتباط باشید</h5></p>
-                <p>تلفن: <a href="tel:021-66860414" style="color: black">66860414 <i class="fa fa-mobile-alt"></i></a></p>
-                <p>پست الکترونیکی: <a href="mailto:info@kosarsport.ir" style="color: black">info@kosarsport.ir <i class="far fa-envelope"></i></a></p>
-                <p>کانال تلگرام: <a href="https://t.me/kosarcomplex" style="color: black">kosarcomplex@@ <i class="fab fa-telegram"></i></a></p>
-                @*<p><a href="/home/about" style="color: white" class="nav-link">درباره ما</a></p>*@
-            </div>
 
-        </div>
-    </footer>
-
+            </div>
+        </footer>
+    }
     @RenderSection("Scripts", required: false)
 </body>
 </html>

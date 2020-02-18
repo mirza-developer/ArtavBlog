@@ -10,10 +10,13 @@ namespace ArtavBlog.Repository.Base
     {
         List<T> GetAllData();
         List<T> GetDataByCustomFilter(Func<T, bool> source);
+        List<T> GetDataByQuery(string queryText);
         T GetSingleDataById(string id);
         Task<bool> InsertInstance(T instance, bool wantToFillFormalProperties);
         Task<bool> DeleteDataById(string id);
       //  Task<bool> DeleteDataByCustomFilter(Func<T, bool> source);
         Task<bool> UpdateInstance(T instance);
+
+        Task<bool> UpdateRange(IEnumerable<T> instance);
     }
 }
