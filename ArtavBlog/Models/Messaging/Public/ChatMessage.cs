@@ -9,6 +9,8 @@ namespace ArtavBlog.Models.Messaging.Public
     {
         public string Sender { get; set; }
         public string MessageText { get; set; }
+        public string MessageTime { get; set; }
+        public string MessagePersianDate { get; set; }
         public DateTime SendDateAndTime { get; set; }
     }
 }

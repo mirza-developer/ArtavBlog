@@ -66,6 +66,11 @@ namespace ArtavBlog.Models.Base
                 .Metadata
                 .SetBeforeSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
 
+            modelBuilder
+                .Entity<CareMessage>()
+                .Property(p => p.Lock)
+                .HasDefaultValue(false);
+
             void UserRegister()
             {
                 var userId = Guid.NewGuid().ToString();

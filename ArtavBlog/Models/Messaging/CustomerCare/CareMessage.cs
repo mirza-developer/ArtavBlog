@@ -16,5 +16,13 @@ namespace ArtavBlog.Models.Messaging.CustomerCare
         public string MessageText  { get; set; }
 
         public string ConnectionId { get; set; }
+
+        [Required]
+        public bool Lock { get; set; }
+
+        [StringLength(128)]
+        public string LastLockerUser { get; set; }
+
+        public DateTime? LastLockerDate { get; set; }
     }
 }

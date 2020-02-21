@@ -88,6 +88,9 @@
                 <h4 class="modal-title">توجه</h4>
             </div>
             <div class="modal-body text-align-center">
+                <p id="message-chatUnreach" class="bg-warning">
+                    گفتگوی موردنظر قابل دسترسی نیست
+                </p>
                 <p id="message-deletesuccess" class="bg-success">
                     گفتگو با موفقیت بسته شد
                 </p>
@@ -120,46 +123,13 @@
         connection.start().catch(function (e) {
             console.log(e);
         });
-        //await Clients.All.SendAsync("CareReceive", "Guest", Context.ConnectionId, message);
         connection.on("CareReceive", (sender, connectionId, message, messageId) => {
-            var messageText = message;
             var dt = new Date();
-            var divParent = $('<div>').addClass('media')
-                .addClass('msg', connectionId)
-                .attr('msg-Id', messageId);
-            $('#chat-context').append(divParent);
-            var aLogo = $('<a>')
-                .addClass('img-userprof')
-                .addClass('pull-left')
-                .attr('href', '#');
-            divParent.append(aLogo);
-            var divChild = $('<div>')
-                .addClass('media-body')
-                .addClass('text-align-right');
-            var small = $('<small>')
-                .addClass('pull-right time');
-            var time = dt.getHours() + ":" + dt.getMinutes()
-            var i = $('<i>')
-                .addClass('fa')
-                .addClass('fa-clock-o')
-                .html(time);
-            small.append(i);
-            divChild.append(small);
-            var h = $('<h5>')
-                .addClass('media-heading').html('Guest');
-            divChild.append(h);
-            var smallInner = $('<small>')
-                .addClass('col-lg-10')
-                .html(message);
-            divChild.append(smallInner);
-            divParent.append(divChild);
-            $('.img-userprof').html(userChatTag);
-
-
+            var time = dt.getHours() + ":" + dt.getMinutes();
+            MessageRender(false, message, '', time, connectionId, messageId);
             $('#input-choosedGuestId').val(connectionId);
         });
         $('#button-send').click(function () {
-            debugger;
             var message = $('#input-message').val();
             if (message === '') {
                 return;
@@ -168,36 +138,8 @@
             var connectionId = $('#input-choosedGuestId').val();
             connection.invoke('CareSend', connectionId, operatorId, message).catch(err => console.error(err.toString()));
             var dt = new Date();
-            var divParent = $('<div>').addClass('media')
-                .addClass('msg', connectionId)
-                .attr('msg-Id', '');
-            $('#chat-context').append(divParent);
-            var aLogo = $('<a>')
-                .addClass('img-careprof')
-                .addClass('pull-left')
-                .attr('href', '#');
-            divParent.append(aLogo);
-            var divChild = $('<div>')
-                .addClass('media-body')
-                .addClass('text-align-left');
-            var small = $('<small>')
-                .addClass('pull-right time');
             var time = dt.getHours() + ":" + dt.getMinutes()
-            var i = $('<i>')
-                .addClass('fa')
-                .addClass('fa-clock-o')
-                .html(time);
-            small.append(i);
-            divChild.append(small);
-            var h = $('<h5>')
-                .addClass('media-heading').html('Guest');
-            divChild.append(h);
-            var smallInner = $('<small>')
-                .addClass('col-lg-10')
-                .html(message);
-            divChild.append(smallInner);
-            divParent.append(divChild);
-            $('.img-careprof').html(userCareTag);
+            MessageRender(true, message, '', time, connectionId, '');
         });
         $('.button-deletechat').click(function () {
             var cnId = $(this).attr('cn-Id');
@@ -214,6 +156,7 @@
 
                     if (backData) {
                         $('#message-deletefail').attr('hidden', 'hidden');
+                        $('#message-chatUnreach').attr('hidden', 'hidden');
                         $('#message-deletesuccess').removeAttr('hidden');
                         $.each($('div[cn-Id]'), function (index, element) {
                             if ($(element).attr('cn-Id') === specCnId) {
@@ -221,24 +164,134 @@
                                 return false;
                             }
                         });
-
-
                     }
                     else {
                         $('#message-deletesuccess').attr('hidden', 'hidden');
+                        $('#message-chatUnreach').attr('hidden', 'hidden');
                         $('#message-deletefail').removeAttr('hidden');
                     }
                     $('#modal-cannotdelete').modal('show');
                 }
             });
         });
-        $('.conversation').click(function () {
-            $.each($('.conversation'), function (index, element) {
-                $(element).removeClass('conversation-choosed');
+        $('.conversation').click(function (event) {
+            debugger;
+            event.preventDefault();
+            var thisConversion = $(this);
+            if (thisConversion.hasClass('conversation-choosed')) {
+                $('#chat-context').html('');
+                thisConversion.removeClass('conversation-choosed');
+                $('#input-choosedGuestId').val('');
+                return;
+            }
+            var specCnId = thisConversion.attr('cn-Id');
+            $.ajax({
+                type: 'POST',
+                url: '/Manage/LockCareChat?cnId=' + specCnId,
+                success: function (backData) {
+                    debugger;
+                    if (backData) {
+                        $.each($('.conversation'), function (index, element) {
+                            $(element).removeClass('conversation-choosed');
+                        });
+                        thisConversion.addClass('conversation-choosed');
+                        $('#input-choosedGuestId').val(specCnId);
+                        $('#chat-context').html('');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/manage/getcaremessages?cnId=' + specCnId,
+                            success: function (backData) {
+                                for (var i = 0; i < backData.length; i++) {
+                                    var item = backData[i];
+                                    var date = item['messagePersianDate'];
+                                    var time = item['messageTime'];
+                                    var sender = item['sender'];
+                                    var boolSender = (sender !== 'Guest');
+                                    var mText = item['messageText'];
+                                    MessageRender(boolSender, mText, date, time, specCnId, '');
+                                }
+
+                            }
+                        });
+                    }
+                    else {
+                        $('#message-deletefail').attr('hidden', 'hidden');
+                        $('#message-deletesuccess').attr('hidden', 'hidden');
+                        $('#message-chatUnreach').removeAttr('hidden');
+                        $('#modal-cannotdelete').modal('show');
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
             });
-            $(this).addClass('conversation-choosed');
-            $('#chat-context').html('');
         });
+
+        function MessageRender(isFromCare, message, sendDate, sendTime, connectionId, messageId) {
+            if (!isFromCare) {
+                var divParent = $('<div>').addClass('media')
+                    .addClass('msg', connectionId)
+                    .attr('msg-Id', messageId);
+                $('#chat-context').append(divParent);
+                var aLogo = $('<a>')
+                    .addClass('img-userprof')
+                    .addClass('pull-left')
+                    .attr('href', '#');
+                divParent.append(aLogo);
+                var divChild = $('<div>')
+                    .addClass('media-body')
+                    .addClass('text-align-right');
+                var small = $('<small>')
+                    .addClass('pull-right time');
+                var i = $('<i>')
+                    .addClass('fa')
+                    .addClass('fa-clock-o')
+                    .html(sendTime);
+                small.append(i);
+                divChild.append(small);
+                var h = $('<h5>')
+                    .addClass('media-heading').html('Guest');
+                divChild.append(h);
+                var smallInner = $('<small>')
+                    .addClass('col-lg-10')
+                    .html(message);
+                divChild.append(smallInner);
+                divParent.append(divChild);
+                $('.img-userprof').html(userChatTag);
+
+            }
+            else {
+                var divParent = $('<div>').addClass('media')
+                    .addClass('msg', connectionId)
+                    .attr('msg-Id', messageId);
+                $('#chat-context').append(divParent);
+                var aLogo = $('<a>')
+                    .addClass('img-careprof')
+                    .addClass('pull-left')
+                    .attr('href', '#');
+                divParent.append(aLogo);
+                var divChild = $('<div>')
+                    .addClass('media-body')
+                    .addClass('text-align-left');
+                var small = $('<small>')
+                    .addClass('pull-right time');
+                var i = $('<i>')
+                    .addClass('fa')
+                    .addClass('fa-clock-o')
+                    .html(sendTime);
+                small.append(i);
+                divChild.append(small);
+                var h = $('<h5>')
+                    .addClass('media-heading').html('Operator');
+                divChild.append(h);
+                var smallInner = $('<small>')
+                    .addClass('col-lg-10')
+                    .html(message);
+                divChild.append(smallInner);
+                divParent.append(divChild);
+                $('.img-careprof').html(userCareTag);
+            }
+        }
     });
 </script>
 <style type="text/css">
@@ -250,7 +303,8 @@
     }
 
     .conversation-choosed {
-        background-color: #cfba7e;
+        background-color: #cfba7e !important;
+        cursor: pointer !important;
     }
 
 
@@ -259,7 +313,7 @@
         padding: 5px;
         border-bottom: 1px solid #ddd;
         margin: 0;
-        cursor: pointer;
+        cursor: pointer !important;
     }
 
     .message-wrap {
