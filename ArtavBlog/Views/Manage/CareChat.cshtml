@@ -123,7 +123,21 @@
         connection.start().catch(function (e) {
             console.log(e);
         });
-        connection.on("CareReceive", (sender, connectionId, message, messageId) => {
+        connection.on("CareReceive", (sender, connectionId, message/*In taken => userId*/, messageId) => {
+            debugger;
+            if (sender === 'Taken') {
+                $.each($('.conversation'), function (index, element) {
+                    debugger;
+                    if ($(element).attr('cn-Id') === message) {
+                        debugger;
+                        if ($('#input-opId').val() !== connectionId) {
+                            debugger;
+                            $(element).attr('disabled', 'disabled');
+                        }
+                    }
+                });
+                return;
+            }
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes();
             MessageRender(false, message, '', time, connectionId, messageId);

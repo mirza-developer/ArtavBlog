@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArtavBlog.Hubs;
 using ArtavBlog.Models.Account;
 using ArtavBlog.Models.Base;
 using ArtavBlog.Models.Messaging.CustomerCare;
@@ -10,6 +11,7 @@ using ArtavBlog.Repository.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArtavBlog.Controllers
@@ -20,10 +22,12 @@ namespace ArtavBlog.Controllers
         //     private BlogContext _context;
         private ISqlBaseRepository<CareMessage> _repos;
         private UserManager<ApplicationUser> _userManager;
-        public ManageController(ISqlBaseRepository<CareMessage> repos, UserManager<ApplicationUser> userManager)
+        private IHubContext<ChatHub> _hubContext;
+        public ManageController(ISqlBaseRepository<CareMessage> repos, UserManager<ApplicationUser> userManager, IHubContext<ChatHub> hubContext)
         {
             _repos = repos;
             _userManager = userManager;
+            _hubContext = hubContext;
         }
         public IActionResult CareChat()
         {
@@ -38,7 +42,7 @@ namespace ArtavBlog.Controllers
                     LastMessageText = p.MessageText.Length > 20 ? (p.MessageText.Substring(0, 20) + " ..") : p.MessageText,
                     LastMessagePersianDate = calendar.GregorianToPersian(p.CreateDateAndTime),
                     LastMessageTime = p.CreateDateAndTime.ToShortTimeString(),
-                    SenderName = (p.CreatorIdentityID == string.Empty ? "Operator": p.CreatorIdentityID)
+                    SenderName = (p.CreatorIdentityID == string.Empty ? "Operator" : p.CreatorIdentityID)
                 })
                 .ToList();
             ViewData["OpeId"] = _userManager.GetUserId(User);
@@ -73,9 +77,10 @@ namespace ArtavBlog.Controllers
                 if (orderedList.Count() == 0)
                     return Json(true);
                 var firstChat = orderedList.First();
+                var diff = DateTime.Now - firstChat.CreateDateAndTime;
                 if (!firstChat.Lock ||
                     firstChat.LastLockerUser == thisUserId ||
-                    (firstChat.Lock && ((DateTime.Now - firstChat.CreateDateAndTime).Hours >= 30)))
+                    (firstChat.Lock && (diff.Days >= 1 || ((diff).Hours >= 30))))
                 {
                     chats.ForEach(f =>
                     {
@@ -87,6 +92,7 @@ namespace ArtavBlog.Controllers
                 else
                     return Json(false);
                 await _repos.UpdateRange(chats);
+                await _hubContext.Clients.All.SendAsync("CareReceive", "Taken", cnId, thisUserId, string.Empty);
                 return Json(true);
             }
             catch (Exception ex)

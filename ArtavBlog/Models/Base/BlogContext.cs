@@ -29,7 +29,7 @@ namespace ArtavBlog.Models.Base
         {
             base.OnModelCreating(modelBuilder);
 
-            UserRegister();
+            AdminUserRegister();
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim", "Ident");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserToken", "Ident");
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin", "Ident");
@@ -71,7 +71,7 @@ namespace ArtavBlog.Models.Base
                 .Property(p => p.Lock)
                 .HasDefaultValue(false);
 
-            void UserRegister()
+            void AdminUserRegister()
             {
                 var userId = Guid.NewGuid().ToString();
                 var adminRoleId = Guid.NewGuid().ToString();
@@ -109,7 +109,34 @@ namespace ArtavBlog.Models.Base
                     RoleId = userRoleId,
                     UserId = userId
                 });
+                NormalUserRegister();
+                void NormalUserRegister()
+                {
+                    var userUserId = Guid.NewGuid().ToString();
+                    modelBuilder.Entity<ApplicationUser>().ToTable("User", "Ident").HasData(new ApplicationUser()
+                    {
+                        UserName = "user",
+                        IsDeleted = false,
+                        LastModifiedDateAndTime = DateTime.Now,
+                        CreateDateAndTime = DateTime.Now,
+                        Email = "ali.qader3@gmail.com",
+                        EmailConfirmed = true,
+                        Id = userUserId,
+                        PasswordHash = AvizheCrypto.DataCryptography.GetHashedString("user220!"),
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        CreatorIdentityID = "NOONE!",
+                        LastModifierIdentityID = "NOONE!"
+                    });
+                    modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole", "Ident").HasData(
+                    new IdentityUserRole<string>()
+                    {
+                        RoleId = userRoleId,
+                        UserId = userUserId
+                    });
+                }
             }
+
+         
         }
     }
 }

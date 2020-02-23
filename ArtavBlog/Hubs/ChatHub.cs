@@ -33,6 +33,8 @@ namespace ArtavBlog.Hubs
             // await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
+
+
         public async Task CareSend(string connectionId, string operatorId/*database user id*/, string message) // For Operator
         {
             var messageInstance = new CareMessage()

@@ -19,6 +19,14 @@
     <script src="~/js/site/home/home.js"></script>
 </head>
 <body class="k-rtl">
+    <header>
+        <nav>
+            <form asp-controller="Account" asp-action="LogOff" id="logoutForm"
+                  method="post" class="navbar-right">
+                <a class="btn" href="javascript:document.getElementById('logoutForm').submit()">@TextResources.APP_STRINGKEYS_Account_LogOff</a>
+            </form>
+        </nav>
+    </header>
     @*@if (!SignInManager.IsSignedIn(User))*@
     @if (false)
     {
