@@ -30,7 +30,7 @@ namespace ArtavBlog.Controllers
 
         public IActionResult Index()
         {
-            return View(_reposPost.GetDataByCustomFilter(p=> ! p.IsDeleted && p.PostOrder != 0));
+            return View(new List<Post> ()/*_reposPost.GetDataByCustomFilter(p=> ! p.IsDeleted && p.PostOrder != 0)*/);
         }
 
         public IActionResult Privacy()

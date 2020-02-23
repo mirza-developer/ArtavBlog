@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "CareChat";
 }
+<script src="~/js/GuidGenerator.js"></script>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <input id="input-opId" type="hidden" value="@ViewData["OpeId"]" />
 <input id="input-choosedGuestId" type="hidden" value="" />
@@ -26,22 +27,6 @@
 
         <div class="message-wrap col-lg-8">
             <div id="chat-context" class="msg-wrap">
-                <div class="media msg ">
-                    <a class="img-userprof pull-left" href="#">
-                    </a>
-                    <div class="media-body text-align-right">
-                        <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
-                        <h5 class="media-heading">Naimish Sakhpara</h5>
-                        <small class="col-lg-10">
-                            Location H-2, Ayojan Nagar, Near Gate-3, Near
-                            Shreyas Crossing Dharnidhar Derasar,
-                            Paldi, Ahmedabad 380007, Ahmedabad,
-                            India
-                            Phone 091 37 669307
-                            Email aapamdavad.district@gmail.com
-                        </small>
-                    </div>
-                </div>
             </div>
             <div class="send-wrap ">
                 <textarea id="input-message" class="form-control send-message" rows="3" placeholder="پیام خود را بنویسید"></textarea>
@@ -118,21 +103,36 @@
             .attr('style', 'width: 50px; height: 50px;')
             .addClass('media-object');
         var operatorId = $('#input-opId').val();
+        var sessionId = create_UUID();
         $('.img-userprof').html(userChatTag);
         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
         connection.start().catch(function (e) {
             console.log(e);
         });
-        connection.on("CareReceive", (sender, connectionId, message/*In taken => userId*/, messageId) => {
-            debugger;
+        var thisConnectionId = '';
+        connection.on("CareReceive", (sender, connectionId/*In Deact => sessionId*/, message/*In taken => userId*/, messageId) => {
+            if (sender === 'Init') {
+                thisConnectionId = connection.connectionId;
+                connection.invoke('CareDeactiveSameConnection', sessionId).catch(err => console.error(err.toString()));
+            }
+            if (sender === 'Deact') {
+                if ($('main').html() === '') {
+                    return;
+                }
+                if (message === operatorId) {
+                    if (thisConnectionId !== connectionId) {
+                        debugger;
+                        alert('امکان دسترسی به این آدرس از بیشتر از یک تب وجود ندارد');
+                        $('main').html('');
+                    }
+                }
+                return;
+            }
             if (sender === 'Taken') {
                 $.each($('.conversation'), function (index, element) {
-                    debugger;
-                    if ($(element).attr('cn-Id') === message) {
-                        debugger;
-                        if ($('#input-opId').val() !== connectionId) {
-                            debugger;
-                            $(element).attr('disabled', 'disabled');
+                    if ($(element).attr('cn-Id') === connectionId) {
+                        if ($('#input-opId').val() !== message) {
+                            $(element).addClass('disabled');
                         }
                     }
                 });
@@ -167,7 +167,6 @@
                 url: '/manage/deletecarechat?cnId=' + specCnId,
                 success: function (backData) {
                     $('#modal-delete').modal('hide');
-
                     if (backData) {
                         $('#message-deletefail').attr('hidden', 'hidden');
                         $('#message-chatUnreach').attr('hidden', 'hidden');
@@ -189,8 +188,9 @@
             });
         });
         $('.conversation').click(function (event) {
-            debugger;
             event.preventDefault();
+            if ($(this).hasClass('disabled'))
+                return;
             var thisConversion = $(this);
             if (thisConversion.hasClass('conversation-choosed')) {
                 $('#chat-context').html('');
@@ -224,7 +224,6 @@
                                     var mText = item['messageText'];
                                     MessageRender(boolSender, mText, date, time, specCnId, '');
                                 }
-
                             }
                         });
                     }
@@ -240,7 +239,6 @@
                 }
             });
         });
-
         function MessageRender(isFromCare, message, sendDate, sendTime, connectionId, messageId) {
             if (!isFromCare) {
                 var divParent = $('<div>').addClass('media')
@@ -306,6 +304,7 @@
                 $('.img-careprof').html(userCareTag);
             }
         }
+
     });
 </script>
 <style type="text/css">
@@ -317,8 +316,13 @@
     }
 
     .conversation-choosed {
-        background-color: #cfba7e !important;
-        cursor: pointer !important;
+        background-color: #cfba7e;
+        cursor: pointer;
+    }
+
+    .disabled {
+        background-color: #b8b8b8 !important;
+        cursor: none !important;
     }
 
 
@@ -420,33 +424,33 @@
     }
 
 
-    body::-webkit-scrollbar {
+    /*body::-webkit-scrollbar {
         width: 12px;
     }
 
 
-    /* Let's get this party started */
+    /* Let's get this party started
     ::-webkit-scrollbar {
         width: 6px;
     }
 
-    /* Track */
+    /* Track
     ::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         /*        -webkit-border-radius: 10px;
-        border-radius: 10px;*/
+        border-radius: 10px;
     }
 
-    /* Handle */
+    /* Handle
     ::-webkit-scrollbar-thumb {
         /*        -webkit-border-radius: 10px;
-        border-radius: 10px;*/
+        border-radius: 10px;
         background: #ddd;
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
     }
 
         ::-webkit-scrollbar-thumb:window-inactive {
             background: #ddd;
-        }
+        }*/
 </style>
 
