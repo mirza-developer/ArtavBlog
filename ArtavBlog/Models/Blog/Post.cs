@@ -37,6 +37,7 @@ namespace ArtavBlog.Models.Blog
         [Display(Name = "عکس اصلی مطلب")]
         public string PostPictureName { get; set; }
 
+        
         public virtual ICollection<TagPost> TagPost_List { get; set; }
         public virtual ICollection<Comment> Comment_List { get; set; }
     }

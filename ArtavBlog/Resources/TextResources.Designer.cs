@@ -124,6 +124,15 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to صفحه اصلی.
+        /// </summary>
+        public static string APP_STRINGKEYS_Home_Index {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Home_Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to در انجام عملیات مورد مشکلی بوجود آمده است.
         /// </summary>
         public static string APP_STRINGKEYS_Message_Failure {
@@ -232,11 +241,47 @@ namespace ArtavBlog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ارسال.
+        /// </summary>
+        public static string APP_STRINGKEYS_Send {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تاریخ ثبت نام.
         /// </summary>
         public static string APP_STRINGKEYS_SignupDate {
             get {
                 return ResourceManager.GetString("APP_STRINGKEYS_SignupDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پشتیبانی سایت.
+        /// </summary>
+        public static string APP_STRINGKEYS_SiteSupport {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_SiteSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پیام خود را وارد کنید.
+        /// </summary>
+        public static string APP_STRINGKEYS_SiteSupport_Placeholder {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_SiteSupport_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سلام.چطور میتونم کمکتون کنم؟.
+        /// </summary>
+        public static string APP_STRINGKEYS_SiteSupport_Question {
+            get {
+                return ResourceManager.GetString("APP_STRINGKEYS_SiteSupport_Question", resourceCulture);
             }
         }
         

@@ -138,6 +138,9 @@
   <data name="APP_STRINGKEYS_From" xml:space="preserve">
     <value>از</value>
   </data>
+  <data name="APP_STRINGKEYS_Home_Index" xml:space="preserve">
+    <value>صفحه اصلی</value>
+  </data>
   <data name="APP_STRINGKEYS_Message_Failure" xml:space="preserve">
     <value>در انجام عملیات مورد مشکلی بوجود آمده است</value>
   </data>
@@ -174,8 +177,20 @@
   <data name="APP_STRINGKEYS_Save" xml:space="preserve">
     <value>ثبت</value>
   </data>
+  <data name="APP_STRINGKEYS_Send" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
   <data name="APP_STRINGKEYS_SignupDate" xml:space="preserve">
     <value>تاریخ ثبت نام</value>
+  </data>
+  <data name="APP_STRINGKEYS_SiteSupport" xml:space="preserve">
+    <value>پشتیبانی سایت</value>
+  </data>
+  <data name="APP_STRINGKEYS_SiteSupport_Placeholder" xml:space="preserve">
+    <value>پیام خود را وارد کنید</value>
+  </data>
+  <data name="APP_STRINGKEYS_SiteSupport_Question" xml:space="preserve">
+    <value>سلام.چطور میتونم کمکتون کنم؟</value>
   </data>
   <data name="APP_STRINGKEYS_Unchanged" xml:space="preserve">
     <value>[بدون تغییر]</value>

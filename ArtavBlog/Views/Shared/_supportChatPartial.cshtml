@@ -1,4 +1,5 @@
 ﻿<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site/home/sitesupport.js"></script>
 <div class="container chatbox">
     <div class="row pt-3">
         <div class="chat-main">
@@ -6,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-6 username pl-2">
                         <i class="fa fa-circle text-success" aria-hidden="true"></i>
-                        <h6 class="m-0 text-right">پشتیبانی سایت</h6>
+                        <h6 class="m-0 text-right">@TextResources.APP_STRINGKEYS_SiteSupport</h6>
                     </div>
                     <div class="col-md-6 options text-left pr-2">
                         <i class="fa fa-times hide-chat-box" aria-hidden="true"></i>
@@ -17,16 +18,15 @@
                 <div class="col-md-12 chats border">
                     <ul id="support-chatlist" class="p-0">
                         <li class="pl-2 pr-2 bg-primary rounded text-white text-center send-msg mb-1">
-                            سلام.چطور میتونم کمکتون کنم؟
+                            @TextResources.APP_STRINGKEYS_SiteSupport_Question
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-12 message-box border pl-2 pr-2 border-top-1">
-                    <textarea id="txt-message" class="pl-0 pr-0 w-100 noresize" placeholder="پیام خود را وارد کنید" ></textarea>
-                    @*<input id="txt-message" type="text" class="pl-0 pr-0 w-100" placeholder="پیام خود را وارد کنید" />*@
+                    <textarea id="txt-message" class="pl-0 pr-0 w-100 noresize" placeholder="@TextResources.APP_STRINGKEYS_SiteSupport_Placeholder"></textarea>
                     <div class="tools">
                         <button id="btn-send" class="btn btn-dark">
-                            ارسال
+                            @TextResources.APP_STRINGKEYS_Send
                         </button>
                     </div>
                 </div>
@@ -128,56 +128,5 @@
 </style>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-         $('.hide-chat-box').click(function () {
-            $('.chat-content').slideToggle();
-         });
-        $('.chat-content').slideToggle();
-        var userChatTag = $('<img>').attr('src', '/setting/GetImageByUrl?imageUrl=~/images/app/user.png');
-        var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-        connection.start().catch(function (e) {
-        });
-        connection.on("GuestReceive", (message) => {
-            var messageText = message;
-            var li = $('<li>').addClass('pl-2')
-                .addClass('rounded')
-                .addClass('mb-1')
-                .addClass('send-msg')
-                .addClass('text-center')
-                .addClass('text-white')
-                .addClass('bg-primary')
-                .addClass('pr-2');
-            li.html(messageText)
-            $('#support-chatlist').append(li);
-        });
 
-        $('#btn-send').click(function () {
-            var message = $('#txt-message').val();
-            if (message === '') {
-                return;
-            }
-            $('#txt-message').val('');
-            connection.invoke('GuestSend', message).catch(err => console.error(err.toString()));
-            var li = $('<li>').addClass('p-1').addClass('rounded').addClass('mb-1');//document.createElement("li").classList.add('  ');
-            var divParent = $('<div>').addClass('receive-msg');
-            li.append(divParent);
-            var image = userChatTag;
-            divParent.append(image);
-            var divChild = $('<div>')
-                .addClass('receive-msg-desc')
-                .addClass('text-left')
-                .addClass('mt-1')
-                .addClass('pl-2')
-                .addClass('pr-2');
-            var pMain = $('<div>').addClass('pl-2').addClass('pr-2').addClass('rounded').html(message);
-            divChild.append(pMain);
-            divParent.append(divChild);
-            li.append(divParent);
-            $('#support-chatlist').append(li);
-            event.preventDefault();
-        });
-        
-
-
-    });
 </script>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ArtavBlog.Business.Base;
 using ArtavBlog.Controllers.Base;
@@ -21,7 +22,7 @@ namespace ArtavBlog.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly BlogContext _context;
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userInManager,BlogContext context)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userInManager, BlogContext context)
         {
             _signInManager = signInManager;
             _userManager = userInManager;
@@ -32,41 +33,28 @@ namespace ArtavBlog.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
-            var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
-            return View(_userManager.Users.Select(p=> new ApplicationUserViewModel() 
-            {
-                Username = p.UserName,
-                SignupShamsiDate = shamsi.GregorianToPersian(p.CreateDateAndTime),
-                ActivationStatus = p.IsDeleted? "غیر فعال": "فعال",
-                Description = ""
-            }).ToList());
+            return View(_context.Roles.ToList());
+        }
+
+
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            return View(await _userManager.GetUserAsync(User));
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult Details(string username)
+        public async Task<IActionResult> RoleDetail(string role)
         {
-            var user = _userManager.Users.FirstOrDefault(p => p.UserName == username);
-            //if (user is null)
-            //    return false;
-            //.Select(p => new ApplicationUserViewModel()
-            //{
-            //    Username = p.UserName,
-            //    SignupShamsiDate = shamsi.GregorianToPersian(p.CreateDateAndTime),
-            //    ActivationStatus = p.IsDeleted ? "غیر فعال" : "فعال",
-            //    Description = ""
-            //})
-            var shamsi = new AvizheCalendar.BLL.WorkingWithPersianCalendar();
-            return View(new ApplicationUserViewModel()
-            {
-                Username = username,
-                ActivationStatus = user.IsDeleted ? "غیر فعال" : "فعال",
-                SignupShamsiDate = shamsi.GregorianToPersian(user.CreateDateAndTime),
-            });
-        }
-
-        public IActionResult Profile()
-        {
-            return View();
+            var rolesById = _context.UserRoles
+            .Where(w => w.RoleId == role);
+            if (!rolesById.Any())
+                return View(new List<ApplicationUser>());
+            ViewData["Title"] = $"کاربران سطح دسترسی {(await _context.Roles.FirstOrDefaultAsync()).NormalizedName}";
+            return View(rolesById
+            .Join(_context.Users, ur => ur.UserId, u => u.Id,
+                (ur, u) => u));
         }
 
         [AllowAnonymous]
@@ -88,7 +76,7 @@ namespace ArtavBlog.Controllers
             if (user is null)
             {
                 ModelState.AddModelError("", TextResources.APP_STRINGKEYS_Message_LoginFailed);
-                return RedirectToAction("Login", new { returnUrl= returnUrl, messageId = MessageId.LoginFailed });
+                return RedirectToAction("Login", new { returnUrl = returnUrl, messageId = MessageId.LoginFailed });
             }
             if (user.IsDeleted)
             {

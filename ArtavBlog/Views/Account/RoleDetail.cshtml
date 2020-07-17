@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+@model IEnumerable<ArtavBlog.Models.Account.ApplicationUser>
 @{
-    ViewData["Title"] = "دسته بندی کاربران";
+
     var index = 1;
 }
 
@@ -9,34 +9,32 @@
 <h2 class="text-align-right">@ViewData["Title"]</h2>
 <hr />
 <div class="col-md-8">
-    <table class="table table table-responsive">
+    <table class="table table-responsive">
         <thead class="bg-primary">
             <tr>
                 <td>
                     ردیف
                 </td>
                 <td>
-                    عنوان
-                </td>
-                <td>
-                    کاربران
+                    نام کاربری
                 </td>
             </tr>
         </thead>
         <tbody>
-            @foreach (IdentityRole item in Model)
+            @foreach (ArtavBlog.Models.Account.ApplicationUser item in Model)
             {
                 <tr>
                     <td>
                         @index
                     </td>
                     <td>
-                        @item.Name
+                        @item.UserName
                     </td>
-                    <td>
-                        <a class="btn btn-success" href="/account/roledetail?role=@item.Id">اقدامات</a>
-                    </td>
+                    @*<td>
+                            <a href="/account/roledetail?role=@item.Id">content</a>
+                        </td>*@
                 </tr>
+                index++;
             }
         </tbody>
     </table>

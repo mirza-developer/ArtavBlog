@@ -42,16 +42,19 @@ namespace ArtavBlog.Models.Base
                 .HasForeignKey(p => p.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Tag>()
-                .HasMany(p => p.TagPost_List)
-                .WithOne(p => p.Tag_TagPost)
-                .HasForeignKey(p => p.TagId)
-                .OnDelete(DeleteBehavior.Restrict);
+           
 
             modelBuilder.Entity<Post>()
                 .HasMany(p => p.Comment_List)
                 .WithOne(p => p.Post_Comment)
                 .HasForeignKey(p => p.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Tag>()
+                .HasMany(p => p.TagPost_List)
+                .WithOne(p => p.Tag_TagPost)
+                .HasForeignKey(p => p.TagId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PhoneNumber>()
@@ -70,6 +73,8 @@ namespace ArtavBlog.Models.Base
                 .Entity<CareMessage>()
                 .Property(p => p.Lock)
                 .HasDefaultValue(false);
+
+         
 
             void AdminUserRegister()
             {

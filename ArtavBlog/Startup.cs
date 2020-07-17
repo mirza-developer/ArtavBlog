@@ -54,7 +54,16 @@ namespace ArtavBlog
                 services.AddTransient<ISqlBaseRepository<PhoneNumber>, BaseSqlBusiness<PhoneNumber>>();
                 services.AddTransient<ISqlBaseRepository<CareMessage>, BaseSqlBusiness<CareMessage>>();
                 //services.AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
-                services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BlogConnection")));
+                services.AddDbContextPool<BlogContext>(options => options.UseSqlServer(Configuration
+                    .GetConnectionString("BlogConnection")));
+                
+            }
+        }
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<BlogContext>().Database.Migrate();
             }
         }
 
@@ -83,6 +92,7 @@ namespace ArtavBlog
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
+            InitializeDatabase(app);
         }
     }
 }

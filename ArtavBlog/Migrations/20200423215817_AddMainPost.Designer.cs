@@ -4,14 +4,16 @@ using ArtavBlog.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ArtavBlog.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20200423215817_AddMainPost")]
+    partial class AddMainPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,39 +111,39 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d44eebd9-89da-4d7c-b988-75cd73ec7735",
+                            Id = "f0e3e93d-53d1-467f-b6b0-867d6f84cdf1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9bc3993f-48de-4a31-8ca6-7f85cea71b62",
-                            CreateDateAndTime = new DateTime(2020, 4, 23, 16, 19, 4, 164, DateTimeKind.Local).AddTicks(2765),
+                            ConcurrencyStamp = "c1902a76-42e2-4ca3-beb7-965d86f988fc",
+                            CreateDateAndTime = new DateTime(2020, 4, 23, 14, 58, 16, 882, DateTimeKind.Local).AddTicks(7280),
                             CreatorIdentityID = "NOONE!",
                             Email = "ali.qader3@gmail.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
-                            LastModifiedDateAndTime = new DateTime(2020, 4, 23, 16, 19, 4, 160, DateTimeKind.Local).AddTicks(7014),
+                            LastModifiedDateAndTime = new DateTime(2020, 4, 23, 14, 58, 16, 878, DateTimeKind.Local).AddTicks(6110),
                             LastModifierIdentityID = "NOONE!",
                             LockoutEnabled = false,
-                            PasswordHash = "AHxrrVWtGX/2aljyFW0ETinBLNHYzYr2wtJt6UyYCFKa7msld9hohWoJ7D+LWgb+NQ==",
+                            PasswordHash = "ALacpdVLroXrj05VFhPo55LENpRnuX9VXoP/Cp0jBVSYQTHEhkzkeCRfuYG1Q71tNA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "583cc444-8646-4a5f-95b5-3e31487c8679",
+                            SecurityStamp = "9f05172c-a7f2-4e04-a859-b9b39f38f637",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
                         new
                         {
-                            Id = "7b2a688e-bd8d-48fa-aeab-c51c513da2e1",
+                            Id = "484c8c0c-4351-41ee-871b-30147a7bc881",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90cd9c64-9c7a-47ae-9092-3f2ffc9431d2",
-                            CreateDateAndTime = new DateTime(2020, 4, 23, 16, 19, 4, 172, DateTimeKind.Local).AddTicks(7777),
+                            ConcurrencyStamp = "87d1aae1-bb0c-4e6e-bb99-b6bb5b309043",
+                            CreateDateAndTime = new DateTime(2020, 4, 23, 14, 58, 16, 893, DateTimeKind.Local).AddTicks(997),
                             CreatorIdentityID = "NOONE!",
                             Email = "ali.qader3@gmail.com",
                             EmailConfirmed = true,
                             IsDeleted = false,
-                            LastModifiedDateAndTime = new DateTime(2020, 4, 23, 16, 19, 4, 172, DateTimeKind.Local).AddTicks(7735),
+                            LastModifiedDateAndTime = new DateTime(2020, 4, 23, 14, 58, 16, 893, DateTimeKind.Local).AddTicks(926),
                             LastModifierIdentityID = "NOONE!",
                             LockoutEnabled = false,
-                            PasswordHash = "AIAU+gCyZUkqG3dKxpGByxoiP9EHi/Axp4r/WL6ltLreJi9wf61oaGE5SJnhvlFWVw==",
+                            PasswordHash = "ALqK5rgE36q4pvdHv5wN3Sg75dMmOQdrxeQSc5p6QwKGlV90bQ6vue0MO07mvf8nXg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0c75bc5-b8f3-4fc2-811f-2f12b2b3fd61",
+                            SecurityStamp = "b293a27c-c8f5-4bba-808d-e6d653b9657d",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -238,6 +240,11 @@ namespace ArtavBlog.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
+
+                    b.Property<bool>("MainPost")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("PostOrder")
                         .HasColumnType("int");
@@ -511,14 +518,14 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0ff3094a-c744-41d9-b658-57237f5ae989",
-                            ConcurrencyStamp = "ac77678c-b17d-47bd-b0a9-b6fbd9f51ae9",
+                            Id = "979e925a-af4d-4fee-b12c-90d99d7648eb",
+                            ConcurrencyStamp = "4de714d1-f2b5-4abf-bc94-2a9fd4b4b412",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "55e4c4c8-09bb-4484-a5bd-236e35ca26d4",
-                            ConcurrencyStamp = "7cc548bf-2505-40ec-888f-2d43558489a2",
+                            Id = "d1c7cb9e-2168-4ecb-8216-a1c92f9b5e7a",
+                            ConcurrencyStamp = "5f149af1-3d73-4909-ac63-882a2d9bad4b",
                             Name = "User"
                         });
                 });
@@ -610,18 +617,18 @@ namespace ArtavBlog.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "d44eebd9-89da-4d7c-b988-75cd73ec7735",
-                            RoleId = "0ff3094a-c744-41d9-b658-57237f5ae989"
+                            UserId = "f0e3e93d-53d1-467f-b6b0-867d6f84cdf1",
+                            RoleId = "979e925a-af4d-4fee-b12c-90d99d7648eb"
                         },
                         new
                         {
-                            UserId = "d44eebd9-89da-4d7c-b988-75cd73ec7735",
-                            RoleId = "55e4c4c8-09bb-4484-a5bd-236e35ca26d4"
+                            UserId = "f0e3e93d-53d1-467f-b6b0-867d6f84cdf1",
+                            RoleId = "d1c7cb9e-2168-4ecb-8216-a1c92f9b5e7a"
                         },
                         new
                         {
-                            UserId = "7b2a688e-bd8d-48fa-aeab-c51c513da2e1",
-                            RoleId = "55e4c4c8-09bb-4484-a5bd-236e35ca26d4"
+                            UserId = "484c8c0c-4351-41ee-871b-30147a7bc881",
+                            RoleId = "d1c7cb9e-2168-4ecb-8216-a1c92f9b5e7a"
                         });
                 });
 
